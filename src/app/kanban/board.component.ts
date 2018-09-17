@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Tasks, TasksProjection } from './lib/tasks.service';
-import { Card, Task } from './models';
-import { Observable, empty, of } from 'rxjs';
-import { switchMapTo, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Tasks } from './lib/tasks.service';
+import { Card, Task, TasksProjection } from './models';
 
 @Component({
   selector: 'tb-board',

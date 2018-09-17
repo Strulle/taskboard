@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Task } from '../models';
-import { TasksProjection } from '../lib/tasks.service';
+import { Task, TasksProjection } from '../models';
 
 @Component({
   selector: 'tb-card-list',
