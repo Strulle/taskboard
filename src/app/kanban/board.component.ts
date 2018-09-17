@@ -12,7 +12,10 @@ import { Card, Task, TasksProjection } from './models';
       title="ToDo"
       *ngIf="tasks$ | async as tasks"
       [tasks]="tasks"
-      (removeSingleTask)="removeTaskFromList($event)">
+      (removeSingleTask)="removeTaskFromList($event)"
+      (favorSingleTask)="favorSingleTask($event)"
+      (disfavorSingleTask)="disfavorSingleTask($event)"
+      >
 
       <tb-toggle-card-form (create)="addTaskToToDo($event)">
       </tb-toggle-card-form>
@@ -39,6 +42,18 @@ export class BoardComponent implements OnInit {
   removeTaskFromList(task: Task) {
     this.tasks$ = this._tasks
       .remove(task)
+      .pipe(switchMap(() => this._refreshTasks()));
+  }
+
+  favorSingleTask(task: Task) {
+    this.tasks$ = this._tasks
+      .favor(task)
+      .pipe(switchMap(() => this._refreshTasks()));
+  }
+
+  disfavorSingleTask(task: Task) {
+    this.tasks$ = this._tasks
+      .disfavor(task)
       .pipe(switchMap(() => this._refreshTasks()));
   }
 

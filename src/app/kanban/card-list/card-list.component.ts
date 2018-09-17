@@ -8,6 +8,8 @@ import { Task, TasksProjection } from '../models';
     <tb-card
       [content]="card"
       (remove)="removeTaskFromList($event)"
+      (favor)="favorTaskOfList($event)"
+      (disfavor)="disfavorTaskOfList($event)"
       *ngFor="let card of tasks.items">
     </tb-card>
 
@@ -25,7 +27,21 @@ export class CardListComponent {
   @Output()
   removeSingleTask = new EventEmitter<Task>();
 
+  @Output()
+  favorSingleTask = new EventEmitter<Task>();
+
+  @Output()
+  disfavorSingleTask = new EventEmitter<Task>();
+
   removeTaskFromList(task: Task) {
     this.removeSingleTask.emit(task);
+  }
+
+  favorTaskOfList(task: Task) {
+    this.favorSingleTask.emit(task);
+  }
+
+  disfavorTaskOfList(task: Task) {
+    this.disfavorSingleTask.emit(task);
   }
 }

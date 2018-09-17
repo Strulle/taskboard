@@ -12,6 +12,18 @@ import { Task } from '../models';
           (click)="raiseRemove()">
           <mat-icon>delete</mat-icon>
         </button>
+        <button
+          *ngIf="!content.isFavorite"
+          mat-icon-button
+          (click)="raiseFavor()">
+          <mat-icon >favorite</mat-icon>
+        </button>
+        <button
+          *ngIf="content.isFavorite"
+          mat-icon-button
+          (click)="raiseDisfavor()">
+          <mat-icon color="accent">favorite</mat-icon>
+        </button>
       </mat-card-actions>
     </mat-card>
   `,
@@ -24,7 +36,21 @@ export class CardComponent {
   @Output()
   remove = new EventEmitter<Task>();
 
+  @Output()
+  favor = new EventEmitter<Task>();
+
+  @Output()
+  disfavor = new EventEmitter<Task>();
+
   raiseRemove() {
     this.remove.emit(this.content);
+  }
+
+  raiseFavor() {
+    this.favor.emit(this.content);
+  }
+
+  raiseDisfavor() {
+    this.disfavor.emit(this.content);
   }
 }

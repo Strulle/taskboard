@@ -29,4 +29,12 @@ export class Tasks {
   remove(forRemoval: Task): Observable<void> {
     return this._http.delete<void>(`${this.endpoint}/${forRemoval.guid}`);
   }
+
+  favor(task: Task) {
+    return this._http.put(`${this.endpoint}/favor/${task.guid}`, null);
+  }
+
+  disfavor(task: Task) {
+    return this._http.put(`${this.endpoint}/disfavor/${task.guid}`, null);
+  }
 }
