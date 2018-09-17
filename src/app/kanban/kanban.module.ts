@@ -14,6 +14,7 @@ import { CardListComponent } from './card-list/card-list.component';
 import { CardComponent } from './card/card.component';
 import { DescribeCardComponent } from './describe-card/describe-card.component';
 import { ToggleCardFormComponent } from './toggle-card-form/toggle-card-form.component';
+import { FavoriteToggleButtonComponent } from './favorite-toggle-button/favorite-toggle-button.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { ToggleCardFormComponent } from './toggle-card-form/toggle-card-form.com
     DescribeCardComponent,
     CardListComponent,
     CardComponent,
-    ToggleCardFormComponent
+    ToggleCardFormComponent,
+    FavoriteToggleButtonComponent
   ],
   exports: [BoardComponent]
 })

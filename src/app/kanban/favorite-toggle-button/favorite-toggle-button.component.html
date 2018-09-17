@@ -1,0 +1,6 @@
+<button *ngIf="!isFavorite" mat-icon-button (click)="favor.emit()">
+  <mat-icon>favorite</mat-icon>
+</button>
+<button *ngIf="isFavorite" mat-icon-button (click)="disfavor.emit()">
+  <mat-icon color="accent">favorite</mat-icon>
+</button>

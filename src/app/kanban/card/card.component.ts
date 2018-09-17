@@ -12,18 +12,11 @@ import { Task } from '../models';
           (click)="raiseRemove()">
           <mat-icon>delete</mat-icon>
         </button>
-        <button
-          *ngIf="!content.isFavorite"
-          mat-icon-button
-          (click)="raiseFavor()">
-          <mat-icon >favorite</mat-icon>
-        </button>
-        <button
-          *ngIf="content.isFavorite"
-          mat-icon-button
-          (click)="raiseDisfavor()">
-          <mat-icon color="accent">favorite</mat-icon>
-        </button>
+        <tb-favorite-toggle-button
+          [isFavorite]="content.isFavorite"
+          (favor)="raiseFavor()"
+          (disfavor)="raiseDisfavor()">
+        </tb-favorite-toggle-button>
       </mat-card-actions>
     </mat-card>
   `,
