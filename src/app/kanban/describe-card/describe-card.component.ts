@@ -21,16 +21,17 @@ import { Card } from '../models';
       </mat-form-field>
       <mat-card-actions>
         <button
-        (click)="cancel.emit()"
-        mat-button
-        type="button">
-        CANCEL
-      </button>
-      <button
-        mat-button
-        type="submit">
-        ADD
-      </button>
+          [disabled]="form.invalid"
+          mat-button
+          type="submit">
+          ADD
+        </button>
+        <button
+          (click)="cancel.emit()"
+          mat-button
+          type="button">
+          CANCEL
+        </button>
       </mat-card-actions>
     </form>
   `,

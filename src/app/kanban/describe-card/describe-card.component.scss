@@ -4,9 +4,15 @@
   max-width: 500px;
   border-radius: 4px;
   padding: 16px;
+  margin: 8px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+}
+
+mat-card-actions {
+  display: flex;
+  flex-flow: row-reverse;
 }

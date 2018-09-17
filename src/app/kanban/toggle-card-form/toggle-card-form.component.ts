@@ -7,7 +7,8 @@ import { Card } from '../models';
     <button
       *ngIf="!isInCreateMode"
       mat-button
-      (click)="showForm()">
+      (click)="showForm()"
+      class="button-create">
       CREATE
     </button>
     <tb-describe-card
