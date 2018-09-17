@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Tasks } from './lib/tasks.service';
+import { Tasks, TasksProjection } from './lib/tasks.service';
 import { Card, Task } from './models';
-import { Observable } from 'rxjs';
+import { Observable, empty, of } from 'rxjs';
 import { switchMapTo, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -10,16 +10,19 @@ import { switchMapTo, switchMap } from 'rxjs/operators';
     <h1 class="mat-h1 title">Kanban</h1>
     <tb-card-list
       title="ToDo"
-      [tasks]="tasks$ | async"
+      *ngIf="tasks$ | async as tasks"
+      [tasks]="tasks"
       (removeSingleTask)="removeTaskFromList($event)">
+
       <tb-toggle-card-form (create)="addTaskToToDo($event)">
       </tb-toggle-card-form>
+
     </tb-card-list>
   `,
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  tasks$: Observable<Task[]>;
+  tasks$: Observable<TasksProjection>;
 
   constructor(private _tasks: Tasks) {}
 

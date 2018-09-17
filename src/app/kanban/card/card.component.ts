@@ -8,9 +8,9 @@ import { Task } from '../models';
       <mat-card-content>{{ content.title }}</mat-card-content>
       <mat-card-actions>
         <button
-          mat-button
+          mat-icon-button
           (click)="raiseRemove()">
-          DELETE
+          <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>

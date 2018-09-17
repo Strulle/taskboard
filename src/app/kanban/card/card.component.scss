@@ -5,4 +5,9 @@
   mat-card {
     margin: 8px;
   }
+
+  mat-card-actions {
+    display: flex;
+    flex-flow: row-reverse;
+  }
 }

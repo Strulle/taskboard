@@ -6,6 +6,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatFormFieldModule,
+  MatIconModule,
   MatInputModule
 } from '@angular/material';
 import { BoardComponent } from './board.component';
@@ -21,6 +22,7 @@ import { ToggleCardFormComponent } from './toggle-card-form/toggle-card-form.com
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
+    MatIconModule,
     MatInputModule,
     MatFormFieldModule
   ],

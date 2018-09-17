@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { newGuid } from 'ts-guid';
-import { Card, Task } from '../models';
+import { Card, Task, TasksProjection } from '../models';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class Tasks {
@@ -10,8 +11,13 @@ export class Tasks {
 
   constructor(private _http: HttpClient) {}
 
-  getAll(): Observable<Task[]> {
-    return this._http.get<Task[]>(this.endpoint);
+  getAll(): Observable<TasksProjection> {
+    return this._http.get<Task[]>(this.endpoint).pipe(
+      map(tasks => ({
+        items: tasks,
+        count: tasks.length
+      }))
+    );
   }
 
   create(card: Card): Observable<void> {
