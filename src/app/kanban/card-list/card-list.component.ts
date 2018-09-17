@@ -1,20 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Card } from '../models';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Task } from '../models';
 
 @Component({
   selector: 'tb-card-list',
   template: `
-    <h4>{{ title }}</h4>
+    <h4 class="title">{{ title }}</h4>
     <tb-card
       [content]="card"
-      *ngFor="let card of cards">
+      (remove)="removeTaskFromList($event)"
+      *ngFor="let card of tasks">
     </tb-card>
-  `
+    <ng-content></ng-content>
+  `,
+  styleUrls: ['./card-list.component.scss']
 })
 export class CardListComponent {
   @Input()
   title: string;
 
   @Input()
-  cards: Card[];
+  tasks: Task[];
+
+  @Output()
+  removeSingleTask = new EventEmitter<Task>();
+
+  removeTaskFromList(task: Task) {
+    this.removeSingleTask.emit(task);
+  }
 }

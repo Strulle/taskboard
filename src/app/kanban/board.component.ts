@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Tasks } from './lib/tasks.service';
-import { Card } from './models';
+import { Card, Task } from './models';
 
 @Component({
   selector: 'tb-board',
   template: `
     <h1 class="mat-h1">Kanban</h1>
-    <tb-describe-card (create)="addTaskToToDo($event)"></tb-describe-card>
     <tb-card-list
-      title="ToDo"
-      [cards]="tasks">
+    title="ToDo"
+    [tasks]="tasks"
+    (removeSingleTask)="removeTaskFromList($event)">
+      <tb-describe-card (create)="addTaskToToDo($event)"></tb-describe-card>
     </tb-card-list>
   `
 })
@@ -24,6 +25,11 @@ export class BoardComponent implements OnInit {
 
   addTaskToToDo(card: Card) {
     this._tasks.create(card);
+    this.tasks = this._tasks.getAll();
+  }
+
+  removeTaskFromList(task: Task) {
+    this._tasks.remove(task);
     this.tasks = this._tasks.getAll();
   }
 }

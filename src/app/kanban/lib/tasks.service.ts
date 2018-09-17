@@ -1,17 +1,29 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Card } from '../models';
+import { newGuid } from 'ts-guid';
+import { Card, Task } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class Tasks {
-  private _tasks: Card[] = [];
+  private _tasks: Task[] = [];
 
-  constructor() {}
+  constructor(private _http: HttpClient) {}
 
   getAll(): Card[] {
+    this._http
+      .get('http://localhost:3000/tasks')
+      .subscribe(ts => console.log(ts));
+
     return this._tasks;
   }
 
   create(card: Card): void {
-    this._tasks = [...this._tasks, card];
+    const task = { id: newGuid(), ...card };
+
+    this._tasks = [...this._tasks, task];
+  }
+
+  remove(forRemoval: Task): void {
+    this._tasks = this._tasks.filter(task => task.id !== forRemoval.id);
   }
 }
