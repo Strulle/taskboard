@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Task, TasksProjection } from '../models';
+import { Task, TasksAggregate } from '../models';
 
 @Component({
   selector: 'tb-card-list',
@@ -22,7 +22,7 @@ export class CardListComponent {
   title: string;
 
   @Input()
-  tasks: TasksProjection;
+  tasks: TasksAggregate;
 
   @Output()
   removeSingleTask = new EventEmitter<Task>();

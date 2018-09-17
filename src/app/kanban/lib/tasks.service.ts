@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, empty, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { newGuid } from 'ts-guid';
-import { Card, Task, TasksProjection } from '../models';
-import { map, tap, switchMap, switchMapTo } from 'rxjs/operators';
+import { Card, Task, TasksAggregate } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class Tasks {
   private endpoint = 'http://localhost:3000/tasks';
 
-  private _tasks$$ = new BehaviorSubject<TasksProjection>({
+  private _tasks$$ = new BehaviorSubject<TasksAggregate>({
     items: [],
     count: 0
   });
@@ -18,7 +18,7 @@ export class Tasks {
 
   constructor(private _http: HttpClient) {}
 
-  getAll(): Observable<TasksProjection> {
+  getAll(): Observable<TasksAggregate> {
     return this._http.get<Task[]>(this.endpoint).pipe(
       map(tasks => ({
         items: tasks,
@@ -28,7 +28,7 @@ export class Tasks {
     );
   }
 
-  create(card: Card): Observable<TasksProjection> {
+  create(card: Card): Observable<TasksAggregate> {
     const task = { guid: newGuid(), ...card };
 
     return this._http
@@ -36,13 +36,13 @@ export class Tasks {
       .pipe(switchMap(() => this.getAll()));
   }
 
-  remove(forRemoval: Task): Observable<TasksProjection> {
+  remove(forRemoval: Task): Observable<TasksAggregate> {
     return this._http
       .delete<void>(`${this.endpoint}/${forRemoval.guid}`)
       .pipe(switchMap(() => this.getAll()));
   }
 
-  favor(task: Task): Observable<TasksProjection> {
+  favor(task: Task): Observable<TasksAggregate> {
     this.patchOptimistically(task.guid, { isFavorite: true });
 
     return this._http
@@ -50,7 +50,7 @@ export class Tasks {
       .pipe(switchMap(() => this.getAll()));
   }
 
-  disfavor(task: Task): Observable<TasksProjection> {
+  disfavor(task: Task): Observable<TasksAggregate> {
     this.patchOptimistically(task.guid, { isFavorite: false });
 
     return this._http

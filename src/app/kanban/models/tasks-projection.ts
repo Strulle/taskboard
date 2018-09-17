@@ -1,6 +1,6 @@
 import { Task } from './task';
 
-export interface TasksProjection {
+export interface TasksAggregate {
   items: Task[];
   count: number;
 }
