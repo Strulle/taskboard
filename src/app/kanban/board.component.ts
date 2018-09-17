@@ -10,12 +10,10 @@ import { Card, Task, TasksAggregate } from './models';
     <h1 class="mat-h1 title">Kanban</h1>
     <tb-card-list
       title="ToDo"
-      *ngIf="tasks$ | async as tasks"
-      [tasks]="tasks"
+      [tasks]="tasks$ | async"
       (removeSingleTask)="removeTaskFromList($event)"
       (favorSingleTask)="favorSingleTask($event)"
-      (disfavorSingleTask)="disfavorSingleTask($event)"
-      >
+      (disfavorSingleTask)="disfavorSingleTask($event)">
 
       <tb-toggle-card-form (create)="addTaskToToDo($event)">
       </tb-toggle-card-form>
