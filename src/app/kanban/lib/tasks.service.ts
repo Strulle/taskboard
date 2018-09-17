@@ -1,29 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { newGuid } from 'ts-guid';
 import { Card, Task } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class Tasks {
-  private _tasks: Task[] = [];
+  private endpoint = 'http://localhost:3000/tasks';
 
   constructor(private _http: HttpClient) {}
 
-  getAll(): Card[] {
-    this._http
-      .get('http://localhost:3000/tasks')
-      .subscribe(ts => console.log(ts));
-
-    return this._tasks;
+  getAll(): Observable<Task[]> {
+    return this._http.get<Task[]>(this.endpoint);
   }
 
-  create(card: Card): void {
+  create(card: Card): Observable<void> {
     const task = { guid: newGuid(), ...card };
 
-    this._tasks = [...this._tasks, task];
+    return this._http.post<void>(this.endpoint, task);
   }
 
-  remove(forRemoval: Task): void {
-    this._tasks = this._tasks.filter(task => task.guid !== forRemoval.guid);
+  remove(forRemoval: Task): Observable<void> {
+    return this._http.delete<void>(`${this.endpoint}/${forRemoval.guid}`);
   }
 }
