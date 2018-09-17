@@ -15,7 +15,7 @@ import { Card } from '../models';
       <mat-form-field>
         <textarea
           matInput
-          formControlName="description"
+          formControlName="text"
           placeholder="Description">
         </textarea>
       </mat-form-field>
@@ -58,7 +58,7 @@ export class DescribeCardComponent {
   private _declareForm() {
     return this._fb.group({
       title: ['', [Validators.required]],
-      description: ['', [Validators.maxLength(150), Validators.minLength(5)]]
+      text: ['', [Validators.maxLength(150), Validators.minLength(5)]]
     });
   }
 }
