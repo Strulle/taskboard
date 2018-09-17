@@ -7,10 +7,11 @@ import { Card, Task } from './models';
   template: `
     <h1 class="mat-h1">Kanban</h1>
     <tb-card-list
-    title="ToDo"
-    [tasks]="tasks"
-    (removeSingleTask)="removeTaskFromList($event)">
-      <tb-describe-card (create)="addTaskToToDo($event)"></tb-describe-card>
+      title="ToDo"
+      [tasks]="tasks"
+      (removeSingleTask)="removeTaskFromList($event)">
+      <tb-toggle-card-form (create)="addTaskToToDo($event)">
+      </tb-toggle-card-form>
     </tb-card-list>
   `
 })

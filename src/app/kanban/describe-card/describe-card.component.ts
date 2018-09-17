@@ -19,31 +19,31 @@ import { Card } from '../models';
           placeholder="Description">
         </textarea>
       </mat-form-field>
+      <mat-card-actions>
+        <button
+        (click)="cancel.emit()"
+        mat-button
+        type="button">
+        CANCEL
+      </button>
       <button
-        type="submit"
-        mat-raised-button
-        color="primary">Create</button>
+        mat-button
+        type="submit">
+        ADD
+      </button>
+      </mat-card-actions>
     </form>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-        max-width: 500px;
-      }
-
-      .form {
-        display: flex;
-        flex-direction: column;
-      }
-    `
-  ]
+  styleUrls: ['./describe-card.component.scss']
 })
 export class DescribeCardComponent {
   form: FormGroup;
 
   @Output()
   create = new EventEmitter<Card>();
+
+  @Output()
+  cancel = new EventEmitter<void>();
 
   constructor(private _fb: FormBuilder) {
     this.form = this._declareForm();

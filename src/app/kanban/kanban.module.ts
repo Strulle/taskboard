@@ -12,6 +12,7 @@ import { BoardComponent } from './board.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { CardComponent } from './card/card.component';
 import { DescribeCardComponent } from './describe-card/describe-card.component';
+import { ToggleCardFormComponent } from './toggle-card-form/toggle-card-form.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { DescribeCardComponent } from './describe-card/describe-card.component';
     BoardComponent,
     DescribeCardComponent,
     CardListComponent,
-    CardComponent
+    CardComponent,
+    ToggleCardFormComponent
   ],
   exports: [BoardComponent]
 })
