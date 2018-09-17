@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'tb-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "tb-root",
+  template: `
+    <tb-board></tb-board>
+  `,
+  styleUrls: ["./app.component.scss"]
 })
-export class AppComponent {
-  title = 'taskboard';
-}
+export class AppComponent {}
