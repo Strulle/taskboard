@@ -43,16 +43,7 @@ export class Tasks {
   }
 
   favor(task: Task): Observable<TasksProjection> {
-    const tasks = this._tasks$$.getValue();
-
-    const optimisticUpdate = tasks.items.map(t => {
-      return t.guid === task.guid ? { ...t, isFavorite: true } : t;
-    });
-
-    this._tasks$$.next({
-      items: optimisticUpdate,
-      count: optimisticUpdate.length
-    });
+    this.patchOptimistically(task.guid, { isFavorite: true });
 
     return this._http
       .put(`${this.endpoint}/favor/${task.guid}`, null)
@@ -60,8 +51,22 @@ export class Tasks {
   }
 
   disfavor(task: Task): Observable<TasksProjection> {
+    this.patchOptimistically(task.guid, { isFavorite: false });
+
     return this._http
       .put(`${this.endpoint}/disfavor/${task.guid}`, null)
       .pipe(switchMap(() => this.getAll()));
+  }
+
+  private patchOptimistically(guid: string, patch: Partial<Task>) {
+    const tasks = this._tasks$$.getValue();
+    const optimisticUpdate = tasks.items.map(
+      task => (task.guid === guid ? { ...task, ...patch } : task)
+    );
+
+    this._tasks$$.next({
+      items: optimisticUpdate,
+      count: optimisticUpdate.length
+    });
   }
 }
