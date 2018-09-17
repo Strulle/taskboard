@@ -25,39 +25,27 @@ import { Card, Task, TasksProjection } from './models';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  tasks$: Observable<TasksProjection>;
+  tasks$ = this._tasks.all$;
 
   constructor(private _tasks: Tasks) {}
 
   ngOnInit() {
-    this.tasks$ = this._refreshTasks();
+    this._tasks.getAll().subscribe();
   }
 
   addTaskToToDo(card: Card) {
-    this.tasks$ = this._tasks
-      .create(card)
-      .pipe(switchMap(() => this._refreshTasks()));
+    this._tasks.create(card).subscribe();
   }
 
   removeTaskFromList(task: Task) {
-    this.tasks$ = this._tasks
-      .remove(task)
-      .pipe(switchMap(() => this._refreshTasks()));
+    this._tasks.remove(task).subscribe();
   }
 
   favorSingleTask(task: Task) {
-    this.tasks$ = this._tasks
-      .favor(task)
-      .pipe(switchMap(() => this._refreshTasks()));
+    this._tasks.favor(task).subscribe();
   }
 
   disfavorSingleTask(task: Task) {
-    this.tasks$ = this._tasks
-      .disfavor(task)
-      .pipe(switchMap(() => this._refreshTasks()));
-  }
-
-  private _refreshTasks() {
-    return this._tasks.getAll();
+    this._tasks.disfavor(task).subscribe();
   }
 }
