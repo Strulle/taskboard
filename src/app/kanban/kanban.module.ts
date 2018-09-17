@@ -8,6 +8,8 @@ import {
 } from '@angular/material';
 import { BoardComponent } from './board.component';
 import { DescribeCardComponent } from './describe-card/describe-card.component';
+import { CardListComponent } from './card-list/card-list.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   imports: [
@@ -17,7 +19,12 @@ import { DescribeCardComponent } from './describe-card/describe-card.component';
     MatFormFieldModule,
     MatInputModule
   ],
-  declarations: [BoardComponent, DescribeCardComponent],
+  declarations: [
+    BoardComponent,
+    DescribeCardComponent,
+    CardListComponent,
+    CardComponent
+  ],
   exports: [BoardComponent]
 })
 export class KanbanModule {}

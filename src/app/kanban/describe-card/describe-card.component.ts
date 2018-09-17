@@ -19,7 +19,10 @@ import { Card } from '../models';
           placeholder="Description">
         </textarea>
       </mat-form-field>
-      <button type="submit" mat-button>Create</button>
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary">Create</button>
     </form>
   `,
   styles: [
@@ -47,7 +50,7 @@ export class DescribeCardComponent {
   }
 
   raiseCreate() {
-    this.create.emit(this.form.value);
+    this.create.emit({ ...this.form.value });
     this.form.reset();
   }
 
