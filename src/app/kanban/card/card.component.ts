@@ -6,7 +6,6 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { Task } from '../models';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'tb-card',

@@ -17,7 +17,7 @@ import { FormControl } from '@angular/forms';
     <div class="lists">
       <tb-todo-list
         title="ToDo"
-        [taskTitleQuery]="markerQuery"
+        [taskTitleQuery]="markerControl.valueChanges | async"
         [tasks]="tasks.todo$ | async"
         (processSingleTask)="processSingleTask($event)"
         (removeSingleTask)="removeTaskFromList($event)"
@@ -29,7 +29,7 @@ import { FormControl } from '@angular/forms';
 
       <tb-doing-list
         title="Doing"
-        [taskTitleQuery]="markerQuery"
+        [taskTitleQuery]="markerControl.valueChanges | async"
         [tasks]="tasks.doing$ | async"
         (completeTask)="completeSingleTask($event)"
         (removeSingleTask)="removeTaskFromList($event)"
@@ -39,7 +39,7 @@ import { FormControl } from '@angular/forms';
 
       <tb-card-list
         title="Done"
-        [taskTitleQuery]="markerQuery"
+        [taskTitleQuery]="markerControl.valueChanges | async"
         [tasks]="tasks.done$ | async"
         (removeSingleTask)="removeTaskFromList($event)"
         (favorSingleTask)="favorSingleTask($event)"
@@ -51,13 +51,8 @@ import { FormControl } from '@angular/forms';
 })
 export class BoardComponent implements OnInit {
   markerControl = new FormControl('');
-  markerQuery: string;
 
-  constructor(public tasks: Tasks) {
-    this.markerControl.valueChanges.subscribe(
-      value => (this.markerQuery = value)
-    );
-  }
+  constructor(public tasks: Tasks) {}
 
   ngOnInit() {
     this.tasks.getAll().subscribe();
