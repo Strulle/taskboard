@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'tb-root',

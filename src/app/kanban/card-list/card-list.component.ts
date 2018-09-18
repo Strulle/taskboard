@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnInit,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { Task, TasksAggregate } from '../models';
 
 @Component({
@@ -15,7 +22,8 @@ import { Task, TasksAggregate } from '../models';
 
     <ng-content></ng-content>
   `,
-  styleUrls: ['./card-list.component.scss']
+  styleUrls: ['./card-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardListComponent {
   @Input()

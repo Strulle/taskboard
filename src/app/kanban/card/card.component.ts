@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { Task } from '../models';
 
 @Component({
@@ -21,7 +27,8 @@ import { Task } from '../models';
       </mat-card-actions>
     </mat-card>
   `,
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent {
   @Input()

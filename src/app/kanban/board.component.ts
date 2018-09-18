@@ -36,7 +36,6 @@ import { Card, Task } from './models';
         (disfavorSingleTask)="disfavorSingleTask($event)">
       </tb-card-list>
     </div>
-
   `,
   styleUrls: ['./board.component.scss']
 })

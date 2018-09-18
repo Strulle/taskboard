@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { CardListComponent } from '../card-list/card-list.component';
 import { Task } from '../models';
 
@@ -20,7 +25,8 @@ import { Task } from '../models';
 
     <ng-content></ng-content>
   `,
-  styleUrls: ['./todo-list.component.scss']
+  styleUrls: ['./todo-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent extends CardListComponent {
   @Output()

@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { CardListComponent } from '../card-list/card-list.component';
 import { Task } from '../models';
 
@@ -18,7 +23,8 @@ import { Task } from '../models';
       ></tb-complete-task-button>
     </tb-card>
 		`,
-  styleUrls: ['./doing-list.component.scss']
+  styleUrls: ['./doing-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DoingListComponent extends CardListComponent {
   @Output()

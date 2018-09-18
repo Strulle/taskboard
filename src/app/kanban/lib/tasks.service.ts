@@ -87,44 +87,35 @@ export class Tasks {
   }
 
   private _todo() {
-    return this._tasks$$.asObservable().pipe(
-      map(aggregate => {
-        const todos = aggregate.items.filter(
-          task => task.isComplete === false && task.isInProgress === false
-        );
-        return {
-          items: todos,
-          count: todos.length
-        };
-      })
+    return this._tasks$$.pipe(
+      map(
+        aggregate =>
+          new TasksAggregate(
+            aggregate.items.filter(i => !i.isInProgress && !i.isComplete)
+          )
+      )
     );
   }
 
   private _doing() {
-    return this._tasks$$.asObservable().pipe(
-      map(aggregate => {
-        const doing = aggregate.items.filter(
-          task => task.isComplete === false && task.isInProgress === true
-        );
-        return {
-          items: doing,
-          count: doing.length
-        };
-      })
+    return this._tasks$$.pipe(
+      map(
+        aggregate =>
+          new TasksAggregate(
+            aggregate.items.filter(i => i.isInProgress && !i.isComplete)
+          )
+      )
     );
   }
 
   private _done() {
-    return this._tasks$$.asObservable().pipe(
-      map(aggregate => {
-        const done = aggregate.items.filter(
-          task => task.isComplete === true && task.isInProgress === false
-        );
-        return {
-          items: done,
-          count: done.length
-        };
-      })
+    return this._tasks$$.pipe(
+      map(
+        aggregate =>
+          new TasksAggregate(
+            aggregate.items.filter(i => !i.isInProgress && i.isComplete)
+          )
+      )
     );
   }
 }
