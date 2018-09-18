@@ -9,8 +9,10 @@ import { FormControl } from '@angular/forms';
     <h1 class="mat-h1 title">Kanban</h1>
 
     <input
+      [formControl]="markerControl"
+      placeholder="Search your tasks..."
       type="text"
-      [formControl]="markerControl">
+      class="highlight-input">
 
     <div class="lists">
       <tb-todo-list

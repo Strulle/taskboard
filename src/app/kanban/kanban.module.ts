@@ -17,7 +17,6 @@ import { DescribeCardComponent } from './describe-card/describe-card.component';
 import { DoingListComponent } from './doing-list/doing-list.component';
 import { FavoriteToggleButtonComponent } from './favorite-toggle-button/favorite-toggle-button.component';
 import { Highlight } from './lib/highlight.pipe';
-import { TrustHtml } from './lib/trust-html.pipe';
 import { ProcessTaskButtonComponent } from './process-task-button/process-task-button.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { ToggleCardFormComponent } from './toggle-card-form/toggle-card-form.component';
