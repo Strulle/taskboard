@@ -10,12 +10,12 @@ export class Highlight implements PipeTransform {
     }
 
     const searchPattern = new RegExp(`(${query})`, 'i');
-    const found = searchPattern.exec(task.title);
+    const [, found = ''] = searchPattern.exec(task.title) || [];
 
-    return !!found && !!found[1]
+    return !!found
       ? {
           ...task,
-          title: task.title.replace(found[1], `<mark>${found[1]}</mark>`)
+          title: task.title.replace(found, `<mark>${found}</mark>`)
         }
       : task;
   }
