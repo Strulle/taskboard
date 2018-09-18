@@ -22,4 +22,16 @@ describe('Highlight Pipe', () => {
 
     expect(highlight).toBe('<mark>buy</mark> Milk');
   });
+
+  it('should pass through if value is not given', () => {
+    const highlight = pipe.transform(null, 'Buy');
+
+    expect(highlight).toBeNull();
+  });
+
+  it('should pass through if query is not given', () => {
+    const highlight = pipe.transform('Buy milk', null);
+
+    expect(highlight).toBe('Buy milk');
+  });
 });
