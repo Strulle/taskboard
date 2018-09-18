@@ -4,15 +4,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { newGuid } from 'ts-guid';
 import { Card, Task, TasksAggregate } from '../models';
+import { TasksAggregateSubject } from './tasks-aggregate.subject';
 
 @Injectable({ providedIn: 'root' })
 export class Tasks {
   private endpoint = 'http://localhost:3000/tasks';
-
-  private _tasks$$ = new BehaviorSubject<TasksAggregate>({
-    items: [],
-    count: 0
-  });
+  private _tasks$$ = new TasksAggregateSubject();
 
   all$ = this._tasks$$.asObservable();
 
