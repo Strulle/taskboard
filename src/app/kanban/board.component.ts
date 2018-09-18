@@ -6,8 +6,6 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'tb-board',
   template: `
-    <h1 class="mat-h1 title">Kanban</h1>
-
     <input
       [formControl]="markerControl"
       placeholder="Search your tasks..."

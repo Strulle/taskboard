@@ -4,6 +4,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'tb-root',
-  template: `<router-outlet></router-outlet>`
+  template: `
+    <h1 class="mat-h1 title">Kanban</h1>
+    <router-outlet></router-outlet>
+  `,
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {}
