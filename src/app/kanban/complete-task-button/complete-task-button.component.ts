@@ -1,12 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Task } from '../models';
 
 @Component({
   selector: 'tb-complete-task-button',
-  templateUrl: './complete-task-button.component.html',
+  template: `
+    <button mat-icon-button (click)="complete.emit(task)">
+      <mat-icon>done</mat-icon>
+    </button>
+  `,
   styleUrls: ['./complete-task-button.component.scss']
 })
-export class CompleteTaskButtonComponent implements OnInit {
-  constructor() {}
+export class CompleteTaskButtonComponent {
+  @Input()
+  task: Task;
 
-  ngOnInit() {}
+  @Output()
+  complete = new EventEmitter<Task>();
 }

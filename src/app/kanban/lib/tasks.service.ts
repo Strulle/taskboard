@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, filter, scan } from 'rxjs/operators';
 import { newGuid } from 'ts-guid';
 import { Card, Task, TasksAggregate } from '../models';
 import { TasksAggregateSubject } from './tasks-aggregate.subject';
@@ -11,7 +11,9 @@ export class Tasks {
   private endpoint = 'http://localhost:3000/tasks';
   private _tasks$$ = new TasksAggregateSubject();
 
-  all$ = this._tasks$$.asObservable();
+  todo$ = this._todo();
+  doing$ = this._doing();
+  done$ = this._done();
 
   constructor(private _http: HttpClient) {}
 
@@ -30,7 +32,19 @@ export class Tasks {
       .pipe(switchMap(() => this.getAll()));
   }
 
-  update(task: Task): Observable<TasksAggregate> {
+  proceed(task: Task): Observable<TasksAggregate> {
+    task.isInProgress = true;
+    task.isComplete = false;
+
+    return this._http
+      .post<void>(this.endpoint, task)
+      .pipe(switchMap(() => this.getAll()));
+  }
+
+  complete(task: Task): Observable<TasksAggregate> {
+    task.isInProgress = false;
+    task.isComplete = true;
+
     return this._http
       .post<void>(this.endpoint, task)
       .pipe(switchMap(() => this.getAll()));
@@ -65,5 +79,47 @@ export class Tasks {
     );
 
     this._tasks$$.next(new TasksAggregate(optimisticUpdate));
+  }
+
+  private _todo() {
+    return this._tasks$$.asObservable().pipe(
+      map(aggregate => {
+        const todos = aggregate.items.filter(
+          task => task.isComplete === false && task.isInProgress === false
+        );
+        return {
+          items: todos,
+          count: todos.length
+        };
+      })
+    );
+  }
+
+  private _doing() {
+    return this._tasks$$.asObservable().pipe(
+      map(aggregate => {
+        const doing = aggregate.items.filter(
+          task => task.isComplete === false && task.isInProgress === true
+        );
+        return {
+          items: doing,
+          count: doing.length
+        };
+      })
+    );
+  }
+
+  private _done() {
+    return this._tasks$$.asObservable().pipe(
+      map(aggregate => {
+        const done = aggregate.items.filter(
+          task => task.isComplete === true && task.isInProgress === false
+        );
+        return {
+          items: done,
+          count: done.length
+        };
+      })
+    );
   }
 }

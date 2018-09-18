@@ -6,42 +6,55 @@ import { Card, Task } from './models';
   selector: 'tb-board',
   template: `
     <h1 class="mat-h1 title">Kanban</h1>
+
     <tb-card-list
       title="ToDo"
-      [tasks]="tasks$ | async"
+      [tasks]="tasks.todo$ | async"
       (removeSingleTask)="removeTaskFromList($event)"
       (favorSingleTask)="favorSingleTask($event)"
       (disfavorSingleTask)="disfavorSingleTask($event)">
-
       <tb-toggle-card-form (create)="addTaskToToDo($event)">
       </tb-toggle-card-form>
+    </tb-card-list>
 
+    <tb-card-list
+      title="Doing"
+      [tasks]="tasks.doing$ | async"
+      (removeSingleTask)="removeTaskFromList($event)"
+      (favorSingleTask)="favorSingleTask($event)"
+      (disfavorSingleTask)="disfavorSingleTask($event)">
+    </tb-card-list>
+
+    <tb-card-list
+      title="Done"
+      [tasks]="tasks.done$ | async"
+      (removeSingleTask)="removeTaskFromList($event)"
+      (favorSingleTask)="favorSingleTask($event)"
+      (disfavorSingleTask)="disfavorSingleTask($event)">
     </tb-card-list>
   `,
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  tasks$ = this._tasks.all$;
-
-  constructor(private _tasks: Tasks) {}
+  constructor(public tasks: Tasks) {}
 
   ngOnInit() {
-    this._tasks.getAll().subscribe();
+    this.tasks.getAll().subscribe();
   }
 
   addTaskToToDo(card: Card) {
-    this._tasks.create(card).subscribe();
+    this.tasks.create(card).subscribe();
   }
 
   removeTaskFromList(task: Task) {
-    this._tasks.remove(task).subscribe();
+    this.tasks.remove(task).subscribe();
   }
 
   favorSingleTask(task: Task) {
-    this._tasks.favor(task).subscribe();
+    this.tasks.favor(task).subscribe();
   }
 
   disfavorSingleTask(task: Task) {
-    this._tasks.disfavor(task).subscribe();
+    this.tasks.disfavor(task).subscribe();
   }
 }

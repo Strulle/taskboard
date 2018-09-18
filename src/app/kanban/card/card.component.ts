@@ -5,6 +5,7 @@ import { Task } from '../models';
   selector: 'tb-card',
   template: `
     <mat-card>
+      <ng-content></ng-content>
       <mat-card-content>{{ content.title }}</mat-card-content>
       <mat-card-actions>
         <button
