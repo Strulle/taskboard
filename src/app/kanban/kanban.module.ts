@@ -12,13 +12,15 @@ import {
 import { BoardComponent } from './board.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { CardComponent } from './card/card.component';
-import { DescribeCardComponent } from './describe-card/describe-card.component';
-import { ToggleCardFormComponent } from './toggle-card-form/toggle-card-form.component';
-import { FavoriteToggleButtonComponent } from './favorite-toggle-button/favorite-toggle-button.component';
 import { CompleteTaskButtonComponent } from './complete-task-button/complete-task-button.component';
-import { ProcessTaskButtonComponent } from './process-task-button/process-task-button.component';
+import { DescribeCardComponent } from './describe-card/describe-card.component';
 import { DoingListComponent } from './doing-list/doing-list.component';
+import { FavoriteToggleButtonComponent } from './favorite-toggle-button/favorite-toggle-button.component';
+import { Highlight } from './lib/highlight.pipe';
+import { TrustHtml } from './lib/trust-html.pipe';
+import { ProcessTaskButtonComponent } from './process-task-button/process-task-button.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
+import { ToggleCardFormComponent } from './toggle-card-form/toggle-card-form.component';
 
 @NgModule({
   imports: [
@@ -41,7 +43,8 @@ import { TodoListComponent } from './todo-list/todo-list.component';
     CompleteTaskButtonComponent,
     ProcessTaskButtonComponent,
     DoingListComponent,
-    TodoListComponent
+    TodoListComponent,
+    Highlight
   ],
   exports: [BoardComponent]
 })

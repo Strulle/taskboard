@@ -6,12 +6,13 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { Task } from '../models';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'tb-card',
   template: `
     <mat-card>
-    <mat-card-content>{{ content.title }}</mat-card-content>
+    <mat-card-content><p [innerHTML]="content.title"></p></mat-card-content>
     <mat-card-actions>
         <ng-content></ng-content>
         <button

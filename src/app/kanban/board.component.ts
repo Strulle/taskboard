@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Tasks } from './lib/tasks.service';
 import { Card, Task } from './models';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'tb-board',
   template: `
     <h1 class="mat-h1 title">Kanban</h1>
 
+    <input
+      type="text"
+      [formControl]="markerControl">
+
     <div class="lists">
       <tb-todo-list
         title="ToDo"
+        [taskTitleQuery]="markerQuery"
         [tasks]="tasks.todo$ | async"
         (processSingleTask)="processSingleTask($event)"
         (removeSingleTask)="removeTaskFromList($event)"
@@ -21,6 +27,7 @@ import { Card, Task } from './models';
 
       <tb-doing-list
         title="Doing"
+        [taskTitleQuery]="markerQuery"
         [tasks]="tasks.doing$ | async"
         (completeTask)="completeSingleTask($event)"
         (removeSingleTask)="removeTaskFromList($event)"
@@ -30,6 +37,7 @@ import { Card, Task } from './models';
 
       <tb-card-list
         title="Done"
+        [taskTitleQuery]="markerQuery"
         [tasks]="tasks.done$ | async"
         (removeSingleTask)="removeTaskFromList($event)"
         (favorSingleTask)="favorSingleTask($event)"
@@ -40,7 +48,14 @@ import { Card, Task } from './models';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  constructor(public tasks: Tasks) {}
+  markerControl = new FormControl('');
+  markerQuery: string;
+
+  constructor(public tasks: Tasks) {
+    this.markerControl.valueChanges.subscribe(
+      value => (this.markerQuery = value)
+    );
+  }
 
   ngOnInit() {
     this.tasks.getAll().subscribe();

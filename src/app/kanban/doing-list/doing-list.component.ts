@@ -12,7 +12,7 @@ import { Task } from '../models';
   template: `
     <h4 class="title">{{ title }} <small>{{ tasks.count }}</small></h4>
     <tb-card
-      [content]="task"
+      [content]="task | highlight:taskTitleQuery"
       (remove)="removeTaskFromList($event)"
       (favor)="favorTaskOfList($event)"
       (disfavor)="disfavorTaskOfList($event)"

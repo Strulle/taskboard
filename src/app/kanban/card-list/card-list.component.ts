@@ -13,7 +13,7 @@ import { Task, TasksAggregate } from '../models';
   template: `
     <h4 class="title">{{ title }} <small>{{ tasks.count }}</small></h4>
     <tb-card
-      [content]="card"
+      [content]="card | highlight:taskTitleQuery"
       (remove)="removeTaskFromList($event)"
       (favor)="favorTaskOfList($event)"
       (disfavor)="disfavorTaskOfList($event)"
@@ -28,6 +28,9 @@ import { Task, TasksAggregate } from '../models';
 export class CardListComponent {
   @Input()
   title: string;
+
+  @Input()
+  taskTitleQuery: string;
 
   @Input()
   tasks: TasksAggregate;
