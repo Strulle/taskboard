@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { newGuid } from 'ts-guid';
 import { Card, Task, TasksAggregate } from '../models';
@@ -17,10 +17,7 @@ export class Tasks {
 
   getAll(): Observable<TasksAggregate> {
     return this._http.get<Task[]>(this.endpoint).pipe(
-      map(tasks => ({
-        items: tasks,
-        count: tasks.length
-      })),
+      map(tasks => new TasksAggregate(tasks)),
       tap(projection => this._tasks$$.next(projection))
     );
   }
@@ -61,9 +58,6 @@ export class Tasks {
       task => (task.guid === guid ? { ...task, ...patch } : task)
     );
 
-    this._tasks$$.next({
-      items: optimisticUpdate,
-      count: optimisticUpdate.length
-    });
+    this._tasks$$.next(new TasksAggregate(optimisticUpdate));
   }
 }
