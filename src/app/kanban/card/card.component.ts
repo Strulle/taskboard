@@ -5,9 +5,9 @@ import { Task } from '../models';
   selector: 'tb-card',
   template: `
     <mat-card>
-      <ng-content></ng-content>
-      <mat-card-content>{{ content.title }}</mat-card-content>
-      <mat-card-actions>
+    <mat-card-content>{{ content.title }}</mat-card-content>
+    <mat-card-actions>
+        <ng-content></ng-content>
         <button
           mat-icon-button
           (click)="raiseRemove()">

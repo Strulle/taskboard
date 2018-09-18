@@ -25,7 +25,12 @@ export class Tasks {
   }
 
   create(card: Card): Observable<TasksAggregate> {
-    const task = { guid: newGuid(), ...card };
+    const task = {
+      guid: newGuid(),
+      ...card,
+      isInProgress: false,
+      isComplete: false
+    };
 
     return this._http
       .post<void>(this.endpoint, task)

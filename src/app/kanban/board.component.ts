@@ -7,31 +7,36 @@ import { Card, Task } from './models';
   template: `
     <h1 class="mat-h1 title">Kanban</h1>
 
-    <tb-card-list
-      title="ToDo"
-      [tasks]="tasks.todo$ | async"
-      (removeSingleTask)="removeTaskFromList($event)"
-      (favorSingleTask)="favorSingleTask($event)"
-      (disfavorSingleTask)="disfavorSingleTask($event)">
-      <tb-toggle-card-form (create)="addTaskToToDo($event)">
-      </tb-toggle-card-form>
-    </tb-card-list>
+    <div class="lists">
+      <tb-todo-list
+        title="ToDo"
+        [tasks]="tasks.todo$ | async"
+        (processSingleTask)="processSingleTask($event)"
+        (removeSingleTask)="removeTaskFromList($event)"
+        (favorSingleTask)="favorSingleTask($event)"
+        (disfavorSingleTask)="disfavorSingleTask($event)">
+        <tb-toggle-card-form (create)="addTaskToToDo($event)">
+        </tb-toggle-card-form>
+      </tb-todo-list>
 
-    <tb-card-list
-      title="Doing"
-      [tasks]="tasks.doing$ | async"
-      (removeSingleTask)="removeTaskFromList($event)"
-      (favorSingleTask)="favorSingleTask($event)"
-      (disfavorSingleTask)="disfavorSingleTask($event)">
-    </tb-card-list>
+      <tb-doing-list
+        title="Doing"
+        [tasks]="tasks.doing$ | async"
+        (completeTask)="completeSingleTask($event)"
+        (removeSingleTask)="removeTaskFromList($event)"
+        (favorSingleTask)="favorSingleTask($event)"
+        (disfavorSingleTask)="disfavorSingleTask($event)">
+      </tb-doing-list>
 
-    <tb-card-list
-      title="Done"
-      [tasks]="tasks.done$ | async"
-      (removeSingleTask)="removeTaskFromList($event)"
-      (favorSingleTask)="favorSingleTask($event)"
-      (disfavorSingleTask)="disfavorSingleTask($event)">
-    </tb-card-list>
+      <tb-card-list
+        title="Done"
+        [tasks]="tasks.done$ | async"
+        (removeSingleTask)="removeTaskFromList($event)"
+        (favorSingleTask)="favorSingleTask($event)"
+        (disfavorSingleTask)="disfavorSingleTask($event)">
+      </tb-card-list>
+    </div>
+
   `,
   styleUrls: ['./board.component.scss']
 })
@@ -44,6 +49,14 @@ export class BoardComponent implements OnInit {
 
   addTaskToToDo(card: Card) {
     this.tasks.create(card).subscribe();
+  }
+
+  processSingleTask(task: Task) {
+    this.tasks.proceed(task).subscribe();
+  }
+
+  completeSingleTask(task: Task) {
+    this.tasks.complete(task).subscribe();
   }
 
   removeTaskFromList(task: Task) {

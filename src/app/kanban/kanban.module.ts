@@ -17,6 +17,8 @@ import { ToggleCardFormComponent } from './toggle-card-form/toggle-card-form.com
 import { FavoriteToggleButtonComponent } from './favorite-toggle-button/favorite-toggle-button.component';
 import { CompleteTaskButtonComponent } from './complete-task-button/complete-task-button.component';
 import { ProcessTaskButtonComponent } from './process-task-button/process-task-button.component';
+import { DoingListComponent } from './doing-list/doing-list.component';
+import { TodoListComponent } from './todo-list/todo-list.component';
 
 @NgModule({
   imports: [
@@ -37,7 +39,9 @@ import { ProcessTaskButtonComponent } from './process-task-button/process-task-b
     ToggleCardFormComponent,
     FavoriteToggleButtonComponent,
     CompleteTaskButtonComponent,
-    ProcessTaskButtonComponent
+    ProcessTaskButtonComponent,
+    DoingListComponent,
+    TodoListComponent
   ],
   exports: [BoardComponent]
 })
