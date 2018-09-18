@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
+
+// <a [routerLink]="task.guid">Details</a>
 
 @Component({
   selector: 'tb-root',
-  template: `
-    <tb-board></tb-board>
-  `
+  template: `<router-outlet></router-outlet>`
 })
 export class AppComponent {}

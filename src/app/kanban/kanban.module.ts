@@ -20,12 +20,15 @@ import { Highlight } from './lib/highlight.pipe';
 import { ProcessTaskButtonComponent } from './process-task-button/process-task-button.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { ToggleCardFormComponent } from './toggle-card-form/toggle-card-form.component';
+import { EditTaskComponent } from './edit-task/edit-task.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
+    RouterModule,
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -43,7 +46,8 @@ import { ToggleCardFormComponent } from './toggle-card-form/toggle-card-form.com
     ProcessTaskButtonComponent,
     DoingListComponent,
     TodoListComponent,
-    Highlight
+    Highlight,
+    EditTaskComponent
   ],
   exports: [BoardComponent]
 })

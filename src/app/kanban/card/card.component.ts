@@ -10,9 +10,9 @@ import { Task } from '../models';
 @Component({
   selector: 'tb-card',
   template: `
-    <mat-card>
-    <mat-card-content><p [innerHTML]="content.title"></p></mat-card-content>
-    <mat-card-actions>
+    <mat-card [routerLink]="content.guid">
+      <mat-card-content><p [innerHTML]="content.title"></p></mat-card-content>
+      <mat-card-actions>
         <ng-content></ng-content>
         <button
           mat-icon-button

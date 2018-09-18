@@ -17,6 +17,10 @@ export class Tasks {
 
   constructor(private _http: HttpClient) {}
 
+  getSingle(guid: string): Observable<Task> {
+    return this._http.get<Task>(`${this.endpoint}/${guid}`);
+  }
+
   getAll(): Observable<TasksAggregate> {
     return this._http.get<Task[]>(this.endpoint).pipe(
       map(tasks => new TasksAggregate(tasks)),
@@ -32,6 +36,12 @@ export class Tasks {
       isComplete: false
     };
 
+    return this._http
+      .post<void>(this.endpoint, task)
+      .pipe(switchMap(() => this.getAll()));
+  }
+
+  update(task: Task): Observable<TasksAggregate> {
     return this._http
       .post<void>(this.endpoint, task)
       .pipe(switchMap(() => this.getAll()));
