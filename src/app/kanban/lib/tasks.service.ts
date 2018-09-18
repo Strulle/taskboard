@@ -30,6 +30,12 @@ export class Tasks {
       .pipe(switchMap(() => this.getAll()));
   }
 
+  update(task: Task): Observable<TasksAggregate> {
+    return this._http
+      .post<void>(this.endpoint, task)
+      .pipe(switchMap(() => this.getAll()));
+  }
+
   remove(forRemoval: Task): Observable<TasksAggregate> {
     return this._http
       .delete<void>(`${this.endpoint}/${forRemoval.guid}`)
