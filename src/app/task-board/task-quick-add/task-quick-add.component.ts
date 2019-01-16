@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'tb-task-quick-add',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task-quick-add.component.scss']
 })
 export class TaskQuickAddComponent implements OnInit {
+  title = new FormControl('');
+
+  @Output() create = new EventEmitter();
+
   constructor() {}
 
   ngOnInit() {}

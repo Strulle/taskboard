@@ -1,24 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TaskQuickAddComponent } from './task-quick-add.component';
 
-describe('TaskQuickAddComponent', () => {
-  let component: TaskQuickAddComponent;
-  let fixture: ComponentFixture<TaskQuickAddComponent>;
+describe('<tb-task-quick-add>', () => {
+  describe('When no title is given', () => {
+    it('should not emit a draft for the task', () => {
+      const sut = new TaskQuickAddComponent();
+      const output = jest.spyOn(sut.create, 'emit');
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [TaskQuickAddComponent]
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TaskQuickAddComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+      sut.title.setValue('');
+      expect(output).not.toBeCalled();
+    });
   });
 });
