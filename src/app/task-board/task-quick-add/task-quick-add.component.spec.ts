@@ -2,6 +2,7 @@ import { subscriptions } from '@test';
 import { TaskQuickAddComponent } from './task-quick-add.component';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('<tb-task-quick-add>', () => {
   let sut: TaskQuickAddComponent;
@@ -38,6 +39,7 @@ describe('<tb-task-quick-add>', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
+        imports: [ReactiveFormsModule],
         declarations: [TaskQuickAddComponent]
       }).compileComponents();
 
@@ -55,6 +57,25 @@ describe('<tb-task-quick-add>', () => {
         ).nativeElement;
 
         expect(button.disabled).toBe(true);
+      });
+    });
+
+    describe('When a title is entered', () => {
+      it('should have an enabled creation button', () => {
+        const input: HTMLInputElement = fixture.debugElement.query(
+          By.css('input')
+        ).nativeElement;
+
+        input.value = 'Hallo';
+        input.dispatchEvent(new Event('input'));
+
+        fixture.detectChanges();
+
+        const button: HTMLButtonElement = fixture.debugElement.query(
+          By.css('button')
+        ).nativeElement;
+
+        expect(button.disabled).toBe(false);
       });
     });
   });
