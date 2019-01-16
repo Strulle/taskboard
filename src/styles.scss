@@ -1,9 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+  --primary-color: rgb(8, 108, 75);
+  --accent-color: #00f893;
+}
+
 html,
 body {
   height: 100%;
-  background-color: #00f893;
+  background-color: var(--accent-color);
 }
 body {
   margin: 0;

@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 
-// <a [routerLink]="task.guid">Details</a>
-
 @Component({
   selector: 'tb-root',
   template: `
-    <h1 class="mat-h1 title">Kanban</h1>
-    <router-outlet></router-outlet>
+    <h1 class="title">Kanban</h1>
   `,
   styleUrls: ['./app.component.scss']
 })
