@@ -30,6 +30,11 @@ export class TaskQuickAddComponent implements OnInit, OnDestroy {
     this.destroy$$.complete();
   }
 
+  emitDraft() {
+    this.create.emit(this.title.value);
+    this.title.reset();
+  }
+
   private _setupForm() {
     this.title.valueChanges
       .pipe(

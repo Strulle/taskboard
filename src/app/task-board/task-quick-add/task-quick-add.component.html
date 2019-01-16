@@ -1,3 +1,3 @@
 <p>task-quick-add works!</p>
 <input type="text" [formControl]="title" />
-<button [disabled]="title.invalid">CREATE</button>
+<button (click)="emitDraft()" [disabled]="title.invalid">CREATE</button>

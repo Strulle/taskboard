@@ -78,6 +78,32 @@ describe('<tb-task-quick-add>', () => {
         expect(button.disabled).toBe(false);
       });
     });
+
+    describe('When a title is submitted', () => {
+      let input: HTMLInputElement;
+      let button: HTMLButtonElement;
+
+      beforeEach(() => {
+        input = fixture.debugElement.query(By.css('input')).nativeElement;
+        input.value = 'Hallo';
+        input.dispatchEvent(new Event('input'));
+
+        fixture.detectChanges();
+
+        button = fixture.debugElement.query(By.css('button')).nativeElement;
+        button.click();
+
+        fixture.detectChanges();
+      });
+
+      it('should clear the input', () => {
+        expect(input.value).toBe('');
+      });
+
+      it('should disable the button', () => {
+        expect(button.disabled).toBe(true);
+      });
+    });
   });
 
   afterEach(() => subscriptions(sut).verify());
