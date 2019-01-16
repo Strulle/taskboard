@@ -1,4 +1,4 @@
-import { observers } from '@test/index';
+import { subscriptions } from '@test';
 import { TaskQuickAddComponent } from './task-quick-add.component';
 
 describe('<tb-task-quick-add>', () => {
@@ -27,8 +27,5 @@ describe('<tb-task-quick-add>', () => {
     });
   });
 
-  afterEach(() => {
-    sut.ngOnDestroy();
-    observers([sut.title.valueChanges]).verify();
-  });
+  afterEach(() => subscriptions(sut).verify());
 });

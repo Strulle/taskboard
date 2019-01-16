@@ -1,1 +1,1 @@
-export * from './observers';
+export * from './observables';
