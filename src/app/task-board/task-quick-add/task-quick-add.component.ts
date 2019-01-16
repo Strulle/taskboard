@@ -5,7 +5,7 @@ import {
   Output,
   OnInit
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
@@ -17,7 +17,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 export class TaskQuickAddComponent implements OnInit, OnDestroy {
   destroy$$ = new Subject();
 
-  title = new FormControl('');
+  title = new FormControl('', [Validators.required]);
 
   @Output() create = new EventEmitter();
 
