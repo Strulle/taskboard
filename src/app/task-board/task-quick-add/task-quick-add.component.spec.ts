@@ -7,6 +7,8 @@ describe('<tb-task-quick-add>', () => {
 
   beforeEach(() => {
     sut = new TaskQuickAddComponent();
+    sut.ngOnInit();
+
     output = jest.spyOn(sut.create, 'emit');
   });
 
