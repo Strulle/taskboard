@@ -26,10 +26,11 @@ describe('<tb-task-quick-add>', () => {
       );
     });
 
-    describe('When title is given', () => {
-      it('should emit a draft for the task', () => {
+    describe('When a title is emitted', () => {
+      it('should reset the form', () => {
         sut.title.setValue('a');
-        expect(output).toBeCalled();
+        sut.emitDraft();
+        expect(sut.title.value).toBe('');
       });
     });
   });

@@ -1,7 +1,8 @@
 import { OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { resolveFormControls, resolveObservableProperties } from './resolvers';
-import { OpenSubscriptionError } from '@test/errors';
+import { OpenSubscriptionError } from '@test';
+import { ObservableProperty } from './resolvers/observable-property';
 
 export type ObservableInspect<T> = Observable<T> & { observers?: any[] };
 
@@ -17,7 +18,10 @@ export function subscriptions<T extends object>(instance: T) {
   return { verify: () => verify(ngOnDestroy, observables) };
 }
 
-function verify(ngOnDestroy: () => void, observables: Observable<unknown>[]) {
+function verify(
+  ngOnDestroy: () => void,
+  observables: ObservableProperty<unknown>[]
+) {
   ngOnDestroy();
 
   const unhandledSubscriptions = findUnhandledSubscriptions(observables);
@@ -30,12 +34,13 @@ function verify(ngOnDestroy: () => void, observables: Observable<unknown>[]) {
 }
 
 function findUnhandledSubscriptions(
-  observables: ObservableInspect<unknown>[]
+  observableProperties: ObservableProperty<unknown>[]
 ): OpenSubscriptionError[] {
-  return observables
-    .map((observable, index) =>
-      !!observable.observers && observable.observers.length > 0
-        ? new OpenSubscriptionError(index)
+  return observableProperties
+    .map(property =>
+      !!(property.observable as any).observers &&
+      (property.observable as any).observers.length > 0
+        ? new OpenSubscriptionError(property.name)
         : null
     )
     .filter(error => !!error);

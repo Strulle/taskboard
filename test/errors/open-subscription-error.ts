@@ -1,5 +1,7 @@
 export class OpenSubscriptionError extends Error {
-  constructor(index: number) {
-    super(`Observable at position ${index} as subscribed observers.`);
+  constructor(propertyName: string) {
+    super(
+      `Detected open subscription for Observable property "${propertyName}".`
+    );
   }
 }

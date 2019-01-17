@@ -1,11 +1,15 @@
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { ObservableProperty } from './observable-property';
 
 export function resolveFormControls<T extends object>(
   instance: T
-): Observable<any>[] {
+): ObservableProperty<unknown>[] {
   return Object.getOwnPropertyNames(instance)
-    .map(propertyName => instance[propertyName])
-    .filter(property => property instanceof FormControl)
-    .map((formControl: FormControl) => formControl.valueChanges);
+    .map(name => ({ name, observable: instance[name] }))
+    .filter(property => property.observable instanceof FormControl)
+    .map(property => ({
+      name: `${property.name}.valueChanges`,
+      observable: property.observable.valueChanges
+    }));
 }
