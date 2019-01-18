@@ -3,8 +3,11 @@ import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'tb-task-quick-add',
-  templateUrl: './task-quick-add.component.html',
-  styleUrls: ['./task-quick-add.component.scss']
+  styleUrls: ['./task-quick-add.component.scss'],
+  template: `
+    <input type="text" [formControl]="title" />
+    <button (click)="emitDraft()" [disabled]="title.invalid">CREATE</button>
+  `
 })
 export class TaskQuickAddComponent {
   title = new FormControl('', [Validators.required]);
