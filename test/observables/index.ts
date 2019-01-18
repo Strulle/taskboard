@@ -15,10 +15,13 @@ export function subscriptions<T extends object>(instance: T) {
     ...resolveObservableProperties(instance)
   ];
 
-  return { verify: () => verify(ngOnDestroy, observables) };
+  return {
+    verify: () => verify(instance.constructor.name, ngOnDestroy, observables)
+  };
 }
 
 function verify(
+  className: string,
   ngOnDestroy: () => void,
   observables: ObservableProperty<unknown>[]
 ) {
@@ -30,7 +33,11 @@ function verify(
     return;
   }
 
-  throw new Error(unhandledSubscriptions.map(err => err.message).join('\n'));
+  throw new Error(
+    `● ${className} › ${unhandledSubscriptions
+      .map(err => err.message)
+      .join('\n')}`
+  );
 }
 
 function findUnhandledSubscriptions(

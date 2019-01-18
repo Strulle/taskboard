@@ -26,7 +26,7 @@ export class TaskQuickAddComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$$.next();
+    // this.destroy$$.next();
     this.destroy$$.complete();
   }
 

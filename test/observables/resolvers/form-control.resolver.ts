@@ -1,5 +1,4 @@
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { ObservableProperty } from './observable-property';
 
 export function resolveFormControls<T extends object>(
