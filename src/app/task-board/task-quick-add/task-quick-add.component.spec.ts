@@ -6,104 +6,73 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 describe('<tb-task-quick-add>', () => {
   let sut: TaskQuickAddComponent;
-  let output: jest.SpyInstance<(value?: {}) => void>;
+  let fixture: ComponentFixture<TaskQuickAddComponent>;
 
-  describe('unit tests', () => {
-    beforeEach(() => {
-      sut = new TaskQuickAddComponent();
-      sut.ngOnInit();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule],
+      declarations: [TaskQuickAddComponent]
+    }).compileComponents();
 
-      output = jest.spyOn(sut.create, 'emit');
-    });
+    fixture = TestBed.createComponent(TaskQuickAddComponent);
+    sut = fixture.componentInstance;
 
-    describe('When no title is given', () => {
-      it.each([null, undefined, '', ' '])(
-        'should not emit a draft for the task ("%s")',
-        notAValue => {
-          sut.title.setValue(notAValue);
-          expect(output).not.toBeCalled();
-        }
-      );
-    });
+    fixture.detectChanges();
+  });
 
-    describe('When a title is emitted', () => {
-      it('should reset the form', () => {
-        sut.title.setValue('a');
-        sut.emitDraft();
-        expect(sut.title.value).toBe('');
-      });
+  describe('When no title is entered', () => {
+    it('should have a disabled creation button', () => {
+      sut.title.setValue('');
+      const button: HTMLButtonElement = fixture.debugElement.query(
+        By.css('button')
+      ).nativeElement;
+
+      expect(button.disabled).toBe(true);
     });
   });
 
-  describe('template tests', () => {
-    let fixture: ComponentFixture<TaskQuickAddComponent>;
+  describe('When a title is entered', () => {
+    it('should have an enabled creation button', () => {
+      const input: HTMLInputElement = fixture.debugElement.query(
+        By.css('input')
+      ).nativeElement;
+
+      input.value = 'Hallo';
+      input.dispatchEvent(new Event('input'));
+
+      fixture.detectChanges();
+
+      const button: HTMLButtonElement = fixture.debugElement.query(
+        By.css('button')
+      ).nativeElement;
+
+      expect(button.disabled).toBe(false);
+    });
+  });
+
+  describe('When a title is submitted', () => {
+    let input: HTMLInputElement;
+    let button: HTMLButtonElement;
 
     beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [ReactiveFormsModule],
-        declarations: [TaskQuickAddComponent]
-      }).compileComponents();
+      input = fixture.debugElement.query(By.css('input')).nativeElement;
+      input.value = 'Hallo';
+      input.dispatchEvent(new Event('input'));
 
-      fixture = TestBed.createComponent(TaskQuickAddComponent);
-      sut = fixture.componentInstance;
+      fixture.detectChanges();
+
+      button = fixture.debugElement.query(By.css('button')).nativeElement;
+      button.click();
 
       fixture.detectChanges();
     });
 
-    describe('When no title is entered', () => {
-      it('should have a disabled creation button', () => {
-        sut.title.setValue('');
-        const button: HTMLButtonElement = fixture.debugElement.query(
-          By.css('button')
-        ).nativeElement;
-
-        expect(button.disabled).toBe(true);
-      });
+    it('should clear the input', () => {
+      expect(input.value).toBe('');
     });
 
-    describe('When a title is entered', () => {
-      it('should have an enabled creation button', () => {
-        const input: HTMLInputElement = fixture.debugElement.query(
-          By.css('input')
-        ).nativeElement;
-
-        input.value = 'Hallo';
-        input.dispatchEvent(new Event('input'));
-
-        fixture.detectChanges();
-
-        const button: HTMLButtonElement = fixture.debugElement.query(
-          By.css('button')
-        ).nativeElement;
-
-        expect(button.disabled).toBe(false);
-      });
-    });
-
-    describe('When a title is submitted', () => {
-      let input: HTMLInputElement;
-      let button: HTMLButtonElement;
-
-      beforeEach(() => {
-        input = fixture.debugElement.query(By.css('input')).nativeElement;
-        input.value = 'Hallo';
-        input.dispatchEvent(new Event('input'));
-
-        fixture.detectChanges();
-
-        button = fixture.debugElement.query(By.css('button')).nativeElement;
-        button.click();
-
-        fixture.detectChanges();
-      });
-
-      it('should clear the input', () => {
-        expect(input.value).toBe('');
-      });
-
-      it('should disable the button', () => {
-        expect(button.disabled).toBe(true);
-      });
+    it('should disable the button', () => {
+      expect(button.disabled).toBe(true);
     });
   });
 
