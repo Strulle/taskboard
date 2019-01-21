@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Mode } from '../models/mode';
-import { TaskCardComponent } from './task-card.component';
-import { times } from '@test';
 import { By } from '@angular/platform-browser';
+import { times } from '@test';
+import { Mode } from '../models/mode';
 import { TaskEditComponent } from '../task-edit/task-edit.component';
 import { TaskViewComponent } from '../task-view/task-view.component';
+import { TaskCardComponent } from './task-card.component';
 
 describe('<tb-task-card>', () => {
   let sut: ComponentFixture<TaskCardComponent>;
@@ -20,11 +20,12 @@ describe('<tb-task-card>', () => {
       title: 'Buy Milk',
       text: 'Norma Tennenlohe'
     };
-    sut.detectChanges();
 
     leaveEditModeButton = () =>
       sut.debugElement.query(By.css('[name=activate-read-only-mode]'))
         .nativeElement;
+
+    sut.detectChanges();
   }));
 
   describe('When it is created', () => {
@@ -43,24 +44,6 @@ describe('<tb-task-card>', () => {
       expect(
         sut.debugElement.query(By.css('tb-task-view')).nativeElement
       ).toBeDefined();
-    });
-
-    it('should display the title of the task', () => {
-      sut.detectChanges();
-
-      const title = sut.debugElement.query(By.css('[name=task-title]'))
-        .nativeElement;
-
-      expect(title).toMatchSnapshot();
-    });
-
-    it('should display the description of the task', () => {
-      sut.detectChanges();
-
-      const title = sut.debugElement.query(By.css('[name=task-text]'))
-        .nativeElement;
-
-      expect(title).toMatchSnapshot();
     });
   });
 
@@ -110,7 +93,7 @@ describe('<tb-task-card>', () => {
       expect(sut.componentInstance.state).toBe(Mode.ReadOnly);
     });
 
-    it('should switch back to read only mode', () => {
+    it('should hide button leaving edit mode', () => {
       sut.nativeElement.click();
 
       leaveEditModeButton().click();

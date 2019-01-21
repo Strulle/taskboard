@@ -2,8 +2,8 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Renderer2,
-  Input
+  Input,
+  Renderer2
 } from '@angular/core';
 import { Mode, Task } from '../models';
 

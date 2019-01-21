@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<tb-task-view> When it is created should display the description of the task 1`] = `
+<p
+  name="task-text"
+>
+  Norma Tennenlohe
+</p>
+`;
+
+exports[`<tb-task-view> When it is created should display the title of the task 1`] = `
+<h3
+  name="task-title"
+>
+  Buy Milk
+</h3>
+`;
