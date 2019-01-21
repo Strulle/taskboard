@@ -7,8 +7,9 @@ import { ObservableProperty } from './resolvers/observable-property';
 export type ObservableInspect<T> = Observable<T> & { observers?: any[] };
 
 export function subscriptions<T extends object>(instance: T) {
-  const ngOnDestroy =
-    (instance as OnDestroy).ngOnDestroy.bind(instance) || (() => {});
+  const ngOnDestroy = !!(instance as OnDestroy).ngOnDestroy
+    ? (instance as OnDestroy).ngOnDestroy.bind(instance)
+    : () => {};
 
   const observables = [
     ...resolveFormControls(instance),

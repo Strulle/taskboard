@@ -1,24 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Mode } from '../models/mode';
 import { TaskCardComponent } from './task-card.component';
+import { times } from '@test';
 
 describe('<tb-task-card>', () => {
   let sut: ComponentFixture<TaskCardComponent>;
 
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({ declarations: [TaskCardComponent] });
+    sut = TestBed.createComponent(TaskCardComponent);
+
+    sut.detectChanges();
+  }));
+
   describe('When it is created', () => {
     it('should be in read only mode', () => {
-      TestBed.configureTestingModule({ declarations: [TaskCardComponent] });
-      sut = TestBed.createComponent(TaskCardComponent);
-
       expect(sut.componentInstance.mode).toBe(Mode.ReadOnly);
     });
   });
 
   describe('When it is clicked', () => {
     it('should switch to edit mode', () => {
-      TestBed.configureTestingModule({ declarations: [TaskCardComponent] });
-      sut = TestBed.createComponent(TaskCardComponent);
-
       sut.componentInstance.ngAfterViewInit();
       sut.debugElement.nativeElement.click();
       sut.detectChanges();
@@ -27,18 +29,14 @@ describe('<tb-task-card>', () => {
     });
 
     it('should not accept clicks if edit mode is active', () => {
-      TestBed.configureTestingModule({ declarations: [TaskCardComponent] });
-      sut = TestBed.createComponent(TaskCardComponent);
+      const activateEditMode = spyOn(sut.componentInstance, 'activateEditMode');
 
-      const editActivation = spyOn(sut.componentInstance, 'activateEditMode');
+      times(2, () => {
+        sut.debugElement.nativeElement.click();
+        sut.detectChanges();
+      });
 
-      sut.debugElement.nativeElement.click();
-      sut.detectChanges();
-
-      sut.debugElement.nativeElement.click();
-      sut.detectChanges();
-
-      expect(editActivation).toHaveBeenCalledTimes(1);
+      expect(activateEditMode).toHaveBeenCalledTimes(1);
     });
   });
 });

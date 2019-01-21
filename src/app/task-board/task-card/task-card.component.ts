@@ -1,9 +1,4 @@
-import {
-  Component,
-  HostListener,
-  ElementRef,
-  AfterViewInit
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Renderer2 } from '@angular/core';
 import { Mode } from '../models/mode';
 
 @Component({
@@ -14,18 +9,25 @@ import { Mode } from '../models/mode';
 export class TaskCardComponent implements AfterViewInit {
   mode = Mode.ReadOnly;
 
-  constructor(private _host: ElementRef<HTMLElement>) {}
+  constructor(
+    private _renderer: Renderer2,
+    private _host: ElementRef<HTMLElement>
+  ) {}
 
   ngAfterViewInit(): void {
-    this._host.nativeElement.addEventListener('click', () =>
-      this.activateEditMode()
+    const remove = this._renderer.listen(
+      this._host.nativeElement,
+      'click',
+      () => this._activateEditModeOnce(remove)
     );
   }
 
   activateEditMode() {
     this.mode = Mode.Edit;
-    this._host.nativeElement.removeEventListener('click', () =>
-      this.activateEditMode()
-    );
+  }
+
+  private _activateEditModeOnce(remove: () => void): void {
+    this.activateEditMode();
+    remove();
   }
 }
