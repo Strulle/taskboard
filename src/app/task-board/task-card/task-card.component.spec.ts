@@ -6,12 +6,17 @@ import { By } from '@angular/platform-browser';
 
 describe('<tb-task-card>', () => {
   let sut: ComponentFixture<TaskCardComponent>;
+  let leaveEditModeButton: () => HTMLButtonElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({ declarations: [TaskCardComponent] });
     sut = TestBed.createComponent(TaskCardComponent);
 
     sut.detectChanges();
+
+    leaveEditModeButton = () =>
+      sut.debugElement.query(By.css('[name=activate-read-only-mode]'))
+        .nativeElement;
   }));
 
   describe('When it is created', () => {
@@ -20,10 +25,7 @@ describe('<tb-task-card>', () => {
     });
 
     it('should hide the cancellation button for edit mode', () => {
-      const btn: HTMLButtonElement = sut.debugElement.query(
-        By.css('[name=activate-read-only-mode]')
-      ).nativeElement;
-      expect(btn.hasAttribute('hidden')).toBe(true);
+      expect(leaveEditModeButton().hasAttribute('hidden')).toBe(true);
     });
   });
 
@@ -50,10 +52,7 @@ describe('<tb-task-card>', () => {
       sut.nativeElement.click();
       sut.detectChanges();
 
-      const btn: HTMLButtonElement = sut.debugElement.query(
-        By.css('[name=activate-read-only-mode]')
-      ).nativeElement;
-      expect(btn.hasAttribute('hidden')).toBe(false);
+      expect(leaveEditModeButton().hasAttribute('hidden')).toBe(false);
     });
   });
 
@@ -61,11 +60,7 @@ describe('<tb-task-card>', () => {
     it('should switch back to read only mode', () => {
       sut.nativeElement.click();
 
-      const btn: HTMLButtonElement = sut.debugElement.query(
-        By.css('[name=activate-read-only-mode]')
-      ).nativeElement;
-
-      btn.click();
+      leaveEditModeButton().click();
       sut.detectChanges();
 
       expect(sut.componentInstance.mode).toBe(Mode.ReadOnly);
@@ -74,14 +69,10 @@ describe('<tb-task-card>', () => {
     it('should switch back to read only mode', () => {
       sut.nativeElement.click();
 
-      const btn: HTMLButtonElement = sut.debugElement.query(
-        By.css('[name=activate-read-only-mode]')
-      ).nativeElement;
-
-      btn.click();
+      leaveEditModeButton().click();
       sut.detectChanges();
 
-      expect(btn.hasAttribute('hidden')).toBe(true);
+      expect(leaveEditModeButton().hasAttribute('hidden')).toBe(true);
     });
   });
 });
