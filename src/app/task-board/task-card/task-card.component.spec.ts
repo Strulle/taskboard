@@ -4,6 +4,7 @@ import { TaskCardComponent } from './task-card.component';
 import { times } from '@test';
 import { By } from '@angular/platform-browser';
 import { TaskEditComponent } from '../task-edit/task-edit.component';
+import { TaskViewComponent } from '../task-view/task-view.component';
 
 describe('<tb-task-card>', () => {
   let sut: ComponentFixture<TaskCardComponent>;
@@ -11,7 +12,7 @@ describe('<tb-task-card>', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TaskCardComponent, TaskEditComponent]
+      declarations: [TaskCardComponent, TaskEditComponent, TaskViewComponent]
     });
     sut = TestBed.createComponent(TaskCardComponent);
 
