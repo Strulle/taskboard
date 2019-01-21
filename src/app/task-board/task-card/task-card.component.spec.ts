@@ -21,7 +21,7 @@ describe('<tb-task-card>', () => {
 
   describe('When it is created', () => {
     it('should be in read only mode', () => {
-      expect(sut.componentInstance.mode).toBe(Mode.ReadOnly);
+      expect(sut.componentInstance.state).toBe(Mode.ReadOnly);
     });
 
     it('should hide the cancellation button for edit mode', () => {
@@ -34,7 +34,7 @@ describe('<tb-task-card>', () => {
       sut.nativeElement.click();
       sut.detectChanges();
 
-      expect(sut.componentInstance.mode).toBe(Mode.Edit);
+      expect(sut.componentInstance.state).toBe(Mode.Edit);
     });
 
     it('should not accept clicks if edit mode is active', () => {
@@ -63,7 +63,7 @@ describe('<tb-task-card>', () => {
       leaveEditModeButton().click();
       sut.detectChanges();
 
-      expect(sut.componentInstance.mode).toBe(Mode.ReadOnly);
+      expect(sut.componentInstance.state).toBe(Mode.ReadOnly);
     });
 
     it('should switch back to read only mode', () => {

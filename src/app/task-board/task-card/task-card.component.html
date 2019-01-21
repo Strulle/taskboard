@@ -1,5 +1,5 @@
 <button
-  [hidden]="isReadMode"
+  [hidden]="state === mode.ReadOnly"
   (click)="activateReadOnlyMode()"
   name="activate-read-only-mode"
 >
