@@ -22,6 +22,10 @@ export class TaskCardComponent implements AfterViewInit {
     );
   }
 
+  activateReadOnlyMode() {
+    this.mode = Mode.ReadOnly;
+  }
+
   activateEditMode() {
     this.mode = Mode.Edit;
   }
