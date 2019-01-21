@@ -13,7 +13,7 @@ import { Mode } from '../models/mode';
   styleUrls: ['./task-card.component.scss']
 })
 export class TaskCardComponent implements AfterViewInit {
-  @Input() task: { title: string };
+  @Input() task: { title: string; text: string };
 
   mode = Mode;
   state = Mode.ReadOnly;

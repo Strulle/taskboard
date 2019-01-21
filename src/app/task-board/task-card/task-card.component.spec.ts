@@ -12,7 +12,10 @@ describe('<tb-task-card>', () => {
     TestBed.configureTestingModule({ declarations: [TaskCardComponent] });
     sut = TestBed.createComponent(TaskCardComponent);
 
-    sut.componentInstance.task = { title: 'Buy Milk' };
+    sut.componentInstance.task = {
+      title: 'Buy Milk',
+      text: 'Norma Tennenlohe'
+    };
     sut.detectChanges();
 
     leaveEditModeButton = () =>
@@ -33,6 +36,15 @@ describe('<tb-task-card>', () => {
       sut.detectChanges();
 
       const title = sut.debugElement.query(By.css('[name=task-title]'))
+        .nativeElement;
+
+      expect(title).toMatchSnapshot();
+    });
+
+    it('should display the description of the task', () => {
+      sut.detectChanges();
+
+      const title = sut.debugElement.query(By.css('[name=task-text]'))
         .nativeElement;
 
       expect(title).toMatchSnapshot();
