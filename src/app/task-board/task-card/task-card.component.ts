@@ -5,7 +5,7 @@ import {
   Renderer2,
   Input
 } from '@angular/core';
-import { Mode } from '../models/mode';
+import { Mode, Task } from '../models';
 
 @Component({
   selector: 'tb-task-card',
@@ -13,7 +13,7 @@ import { Mode } from '../models/mode';
   styleUrls: ['./task-card.component.scss']
 })
 export class TaskCardComponent implements AfterViewInit {
-  @Input() task: { title: string; text: string };
+  @Input() task: Task;
 
   mode = Mode;
   state = Mode.ReadOnly;
