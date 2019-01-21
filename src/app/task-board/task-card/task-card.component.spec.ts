@@ -3,13 +3,16 @@ import { Mode } from '../models/mode';
 import { TaskCardComponent } from './task-card.component';
 import { times } from '@test';
 import { By } from '@angular/platform-browser';
+import { TaskEditComponent } from '../task-edit/task-edit.component';
 
 describe('<tb-task-card>', () => {
   let sut: ComponentFixture<TaskCardComponent>;
   let leaveEditModeButton: () => HTMLButtonElement;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({ declarations: [TaskCardComponent] });
+    TestBed.configureTestingModule({
+      declarations: [TaskCardComponent, TaskEditComponent]
+    });
     sut = TestBed.createComponent(TaskCardComponent);
 
     sut.componentInstance.task = {
@@ -30,6 +33,15 @@ describe('<tb-task-card>', () => {
 
     it('should hide the cancellation button for edit mode', () => {
       expect(leaveEditModeButton().hasAttribute('hidden')).toBe(true);
+    });
+
+    it('should display the view template', () => {
+      sut.nativeElement.click();
+      sut.detectChanges();
+
+      expect(
+        sut.debugElement.query(By.css('tb-task-view')).nativeElement
+      ).toBeDefined();
     });
 
     it('should display the title of the task', () => {
@@ -75,6 +87,15 @@ describe('<tb-task-card>', () => {
       sut.detectChanges();
 
       expect(leaveEditModeButton().hasAttribute('hidden')).toBe(false);
+    });
+
+    it('should display the edit template', () => {
+      sut.nativeElement.click();
+      sut.detectChanges();
+
+      expect(
+        sut.debugElement.query(By.css('tb-task-edit')).nativeElement
+      ).toBeDefined();
     });
   });
 
