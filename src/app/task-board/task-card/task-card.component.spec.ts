@@ -21,8 +21,7 @@ describe('<tb-task-card>', () => {
 
   describe('When it is clicked', () => {
     it('should switch to edit mode', () => {
-      sut.componentInstance.ngAfterViewInit();
-      sut.debugElement.nativeElement.click();
+      sut.nativeElement.click();
       sut.detectChanges();
 
       expect(sut.componentInstance.mode).toBe(Mode.Edit);
@@ -32,7 +31,7 @@ describe('<tb-task-card>', () => {
       const activateEditMode = spyOn(sut.componentInstance, 'activateEditMode');
 
       times(2, () => {
-        sut.debugElement.nativeElement.click();
+        sut.nativeElement.click();
         sut.detectChanges();
       });
 
