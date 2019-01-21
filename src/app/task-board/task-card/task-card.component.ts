@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Renderer2,
+  Input
+} from '@angular/core';
 import { Mode } from '../models/mode';
 
 @Component({
@@ -7,6 +13,8 @@ import { Mode } from '../models/mode';
   styleUrls: ['./task-card.component.scss']
 })
 export class TaskCardComponent implements AfterViewInit {
+  @Input() task: { title: string };
+
   mode = Mode;
   state = Mode.ReadOnly;
 

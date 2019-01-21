@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<tb-task-card> When it is created should display the title of the task 1`] = `
+<h3
+  name="task-title"
+>
+  Buy Milk
+</h3>
+`;

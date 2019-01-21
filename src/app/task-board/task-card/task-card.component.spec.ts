@@ -12,6 +12,7 @@ describe('<tb-task-card>', () => {
     TestBed.configureTestingModule({ declarations: [TaskCardComponent] });
     sut = TestBed.createComponent(TaskCardComponent);
 
+    sut.componentInstance.task = { title: 'Buy Milk' };
     sut.detectChanges();
 
     leaveEditModeButton = () =>
@@ -26,6 +27,15 @@ describe('<tb-task-card>', () => {
 
     it('should hide the cancellation button for edit mode', () => {
       expect(leaveEditModeButton().hasAttribute('hidden')).toBe(true);
+    });
+
+    it('should display the title of the task', () => {
+      sut.detectChanges();
+
+      const title = sut.debugElement.query(By.css('[name=task-title]'))
+        .nativeElement;
+
+      expect(title).toMatchSnapshot();
     });
   });
 
