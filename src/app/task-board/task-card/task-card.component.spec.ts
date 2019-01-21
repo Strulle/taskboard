@@ -18,6 +18,13 @@ describe('<tb-task-card>', () => {
     it('should be in read only mode', () => {
       expect(sut.componentInstance.mode).toBe(Mode.ReadOnly);
     });
+
+    it('should hide the cancellation button for edit mode', () => {
+      const btn: HTMLButtonElement = sut.debugElement.query(
+        By.css('[name=activate-read-only-mode]')
+      ).nativeElement;
+      expect(btn.hasAttribute('hidden')).toBe(true);
+    });
   });
 
   describe('When it is clicked', () => {
@@ -38,6 +45,16 @@ describe('<tb-task-card>', () => {
 
       expect(activateEditMode).toHaveBeenCalledTimes(1);
     });
+
+    it('should display the cancellation button for edit mode', () => {
+      sut.nativeElement.click();
+      sut.detectChanges();
+
+      const btn: HTMLButtonElement = sut.debugElement.query(
+        By.css('[name=activate-read-only-mode]')
+      ).nativeElement;
+      expect(btn.hasAttribute('hidden')).toBe(false);
+    });
   });
 
   describe('When the user leaves the edit mode', () => {
@@ -52,6 +69,19 @@ describe('<tb-task-card>', () => {
       sut.detectChanges();
 
       expect(sut.componentInstance.mode).toBe(Mode.ReadOnly);
+    });
+
+    it('should switch back to read only mode', () => {
+      sut.nativeElement.click();
+
+      const btn: HTMLButtonElement = sut.debugElement.query(
+        By.css('[name=activate-read-only-mode]')
+      ).nativeElement;
+
+      btn.click();
+      sut.detectChanges();
+
+      expect(btn.hasAttribute('hidden')).toBe(true);
     });
   });
 });

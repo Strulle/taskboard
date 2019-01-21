@@ -1,3 +1,7 @@
-<button (click)="activateReadOnlyMode()" name="activate-read-only-mode">
+<button
+  [hidden]="isReadMode"
+  (click)="activateReadOnlyMode()"
+  name="activate-read-only-mode"
+>
   Cancel
 </button>

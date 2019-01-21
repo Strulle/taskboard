@@ -8,11 +8,14 @@ import { Mode } from '../models/mode';
 })
 export class TaskCardComponent implements AfterViewInit {
   mode = Mode.ReadOnly;
+  isReadMode: boolean;
 
   constructor(
     private _renderer: Renderer2,
     private _host: ElementRef<HTMLElement>
-  ) {}
+  ) {
+    this.isReadMode = true;
+  }
 
   ngAfterViewInit(): void {
     const remove = this._renderer.listen(
@@ -24,10 +27,12 @@ export class TaskCardComponent implements AfterViewInit {
 
   activateReadOnlyMode() {
     this.mode = Mode.ReadOnly;
+    this.isReadMode = true;
   }
 
   activateEditMode() {
     this.mode = Mode.Edit;
+    this.isReadMode = false;
   }
 
   private _activateEditModeOnce(remove: () => void): void {
