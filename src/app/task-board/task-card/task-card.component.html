@@ -1,5 +1,5 @@
-<tb-task-view [task]="task"></tb-task-view>
-<tb-task-edit></tb-task-edit>
+<tb-task-view [hidden]="state === mode.Edit" [task]="task"></tb-task-view>
+<tb-task-edit [hidden]="state === mode.ReadOnly"></tb-task-edit>
 
 <button
   [hidden]="state === mode.ReadOnly"

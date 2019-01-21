@@ -37,13 +37,20 @@ describe('<tb-task-card>', () => {
       expect(leaveEditModeButton().hasAttribute('hidden')).toBe(true);
     });
 
-    it('should display the view template', () => {
-      sut.nativeElement.click();
-      sut.detectChanges();
+    it('should show the view template', () => {
+      const viewTemplate: HTMLElement = sut.debugElement.query(
+        By.css('tb-task-view')
+      ).nativeElement;
 
-      expect(
-        sut.debugElement.query(By.css('tb-task-view')).nativeElement
-      ).toBeDefined();
+      expect(viewTemplate.hasAttribute('hidden')).toBe(false);
+    });
+
+    it('should hide the edit template', () => {
+      const editTemplate: HTMLElement = sut.debugElement.query(
+        By.css('tb-task-edit')
+      ).nativeElement;
+
+      expect(editTemplate.hasAttribute('hidden')).toBe(true);
     });
   });
 
@@ -80,6 +87,17 @@ describe('<tb-task-card>', () => {
       expect(
         sut.debugElement.query(By.css('tb-task-edit')).nativeElement
       ).toBeDefined();
+    });
+
+    it('should hide the view template', () => {
+      sut.nativeElement.click();
+      sut.detectChanges();
+
+      const viewTemplate: HTMLElement = sut.debugElement.query(
+        By.css('tb-task-view')
+      ).nativeElement;
+
+      expect(viewTemplate.hasAttribute('hidden')).toBe(true);
     });
   });
 
