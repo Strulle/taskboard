@@ -1,4 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { times } from '@test';
 import { Mode } from '../models/mode';
 import { TaskEditComponent } from '../task-edit/task-edit.component';
@@ -11,7 +12,8 @@ describe('<tb-task-card>', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TaskCardComponent, TaskEditComponent, TaskViewComponent]
+      declarations: [TaskCardComponent, TaskEditComponent, TaskViewComponent],
+      imports: [ReactiveFormsModule]
     });
     const fixture = TestBed.createComponent(TaskCardComponent);
     sut = new TaskCardInteractions(fixture);
