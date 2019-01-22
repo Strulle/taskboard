@@ -15,7 +15,10 @@ describe('<tb-task-edit>', () => {
 
   beforeEach(() => {
     sut = TestBed.createComponent(TaskEditComponent);
-    sut.componentInstance.task = { title: 'Buy Milk' };
+    sut.componentInstance.task = {
+      title: 'Buy Milk',
+      text: 'Norma Tennenlohe'
+    };
     sut.detectChanges();
   });
 
@@ -46,8 +49,12 @@ describe('<tb-task-edit>', () => {
       expect(input.value).toBe(sut.componentInstance.task.title);
     });
 
-    // it('it should display the text' , () => {
+    it('it should display the text', () => {
+      const input: HTMLInputElement = sut.debugElement.query(
+        By.css('[name=text-input]')
+      ).nativeElement;
 
-    // });
+      expect(input.value).toBe(sut.componentInstance.task.text);
+    });
   });
 });

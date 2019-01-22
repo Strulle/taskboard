@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./task-edit.component.scss']
 })
 export class TaskEditComponent implements OnInit {
-  @Input() task: { title: string } = { title: '' };
+  @Input() task: { title: string; text: string } = { title: '', text: '' };
 
   editGroup: FormGroup;
 
@@ -15,7 +15,8 @@ export class TaskEditComponent implements OnInit {
 
   ngOnInit() {
     this.editGroup = this._fb.group({
-      title: [this.task.title]
+      title: [this.task.title],
+      text: [this.task.text]
     });
   }
 }
