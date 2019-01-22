@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   selector: 'tb-root',
   template: `
     <h1 class="title">Kanban</h1>
+    <router-outlet></router-outlet>
   `,
   styleUrls: ['./app.component.scss']
 })
