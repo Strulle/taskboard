@@ -63,8 +63,7 @@ describe('<tb-task-edit>', () => {
     it('should allow to emit the update', () => {
       const update = spyOn(sut.componentInstance.update, 'emit');
 
-      titleControl.value = 'Buy Eggs';
-      titleControl.dispatchEvent(new Event('input'));
+      typeValue(titleControl, 'Buy Eggs');
 
       updateTrigger.click();
       sut.detectChanges();
@@ -77,16 +76,30 @@ describe('<tb-task-edit>', () => {
     it('should not emit the update', () => {
       const update = spyOn(sut.componentInstance.update, 'emit');
 
-      titleControl.value = 'Buy Eggs';
-      titleControl.dispatchEvent(new Event('input'));
-
-      titleControl.value = 'Buy Milk';
-      titleControl.dispatchEvent(new Event('input'));
+      typeValue(titleControl, 'Buy Eggs');
+      typeValue(titleControl, 'Buy Milk');
 
       updateTrigger.click();
       sut.detectChanges();
 
       expect(update).not.toHaveBeenCalled();
     });
+
+    it('should emit the cancel event', () => {
+      const cancel = spyOn(sut.componentInstance.cancel, 'emit');
+
+      typeValue(titleControl, 'Buy Eggs');
+      typeValue(titleControl, 'Buy Milk');
+
+      updateTrigger.click();
+      sut.detectChanges();
+
+      expect(cancel).toHaveBeenCalled();
+    });
   });
 });
+
+function typeValue(control: HTMLInputElement, value: string) {
+  control.value = value;
+  control.dispatchEvent(new Event('input'));
+}
