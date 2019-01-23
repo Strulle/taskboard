@@ -9,6 +9,7 @@ describe('<tb-task-edit>', () => {
   let titleControl: HTMLInputElement;
   let textControl: HTMLInputElement;
   let updateTrigger: HTMLButtonElement;
+  let cancelTrigger: HTMLButtonElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -33,6 +34,9 @@ describe('<tb-task-edit>', () => {
 
     updateTrigger = sut.debugElement.query(By.css('[name=update-btn]'))
       .nativeElement;
+
+    cancelTrigger = sut.debugElement.query(By.css('[name=cancel-btn]'))
+      .nativeElement;
   });
 
   describe('When it is rendered', () => {
@@ -46,6 +50,10 @@ describe('<tb-task-edit>', () => {
 
     it('should provide an update button to emit updates of a task', () => {
       expect(updateTrigger).toBeDefined();
+    });
+
+    it('should provide cancel button to end task editing', () => {
+      expect(cancelTrigger).toBeDefined();
     });
   });
 
@@ -93,6 +101,16 @@ describe('<tb-task-edit>', () => {
 
       updateTrigger.click();
       sut.detectChanges();
+
+      expect(cancel).toHaveBeenCalled();
+    });
+  });
+
+  describe('When the user cancels editing', () => {
+    it('should emit the cancellation event', () => {
+      const cancel = spyOn(sut.componentInstance.cancel, 'emit');
+
+      cancelTrigger.click();
 
       expect(cancel).toHaveBeenCalled();
     });
