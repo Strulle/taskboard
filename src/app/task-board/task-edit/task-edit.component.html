@@ -1,4 +1,5 @@
-<form [formGroup]="editGroup">
+<form [formGroup]="editGroup" (ngSubmit)="updateOnChange()">
   <input formControlName="title" type="text" name="title-input" />
   <input formControlName="text" type="text" name="text-input" />
+  <button type="submit" name="update-btn">UPDATE</button>
 </form>

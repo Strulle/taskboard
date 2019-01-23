@@ -8,6 +8,7 @@ describe('<tb-task-edit>', () => {
 
   let titleControl: HTMLInputElement;
   let textControl: HTMLInputElement;
+  let updateTrigger: HTMLButtonElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,6 +30,9 @@ describe('<tb-task-edit>', () => {
 
     textControl = sut.debugElement.query(By.css('[name=text-input]'))
       .nativeElement;
+
+    updateTrigger = sut.debugElement.query(By.css('[name=update-btn]'))
+      .nativeElement;
   });
 
   describe('When it is rendered', () => {
@@ -38,6 +42,10 @@ describe('<tb-task-edit>', () => {
 
     it('should provide a text-box to edit the text of a task', () => {
       expect(textControl).toBeDefined();
+    });
+
+    it('should provide an update button to emit updates of a task', () => {
+      expect(updateTrigger).toBeDefined();
     });
   });
 
@@ -51,5 +59,34 @@ describe('<tb-task-edit>', () => {
     });
   });
 
-  describe('When task ');
+  describe('When a task has been changed', () => {
+    it('should allow to emit the update', () => {
+      const update = spyOn(sut.componentInstance.update, 'emit');
+
+      titleControl.value = 'Buy Eggs';
+      titleControl.dispatchEvent(new Event('input'));
+
+      updateTrigger.click();
+      sut.detectChanges();
+
+      expect(update).toHaveBeenCalled();
+    });
+  });
+
+  describe('When a task has NOT been changed', () => {
+    it('should not emit the update', () => {
+      const update = spyOn(sut.componentInstance.update, 'emit');
+
+      titleControl.value = 'Buy Eggs';
+      titleControl.dispatchEvent(new Event('input'));
+
+      titleControl.value = 'Buy Milk';
+      titleControl.dispatchEvent(new Event('input'));
+
+      updateTrigger.click();
+      sut.detectChanges();
+
+      expect(update).not.toHaveBeenCalled();
+    });
+  });
 });

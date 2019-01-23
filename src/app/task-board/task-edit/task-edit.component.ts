@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Task } from '../models';
 
 @Component({
   selector: 'tb-task-edit',
@@ -7,7 +8,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./task-edit.component.scss']
 })
 export class TaskEditComponent implements OnInit {
-  @Input() task: { title: string; text: string } = { title: '', text: '' };
+  @Input() task: Task = { title: '', text: '' };
+  @Output() update = new EventEmitter<Task>();
+  @Output() cancel = new EventEmitter<void>();
 
   editGroup: FormGroup;
 
@@ -18,5 +21,17 @@ export class TaskEditComponent implements OnInit {
       title: [this.task.title],
       text: [this.task.text]
     });
+  }
+
+  updateOnChange() {
+    if (this._areDifferent(this.task, this.editGroup.value)) {
+      this.update.emit(this.editGroup.value);
+    } else {
+      this.cancel.emit();
+    }
+  }
+
+  private _areDifferent(a: unknown, b: unknown) {
+    return JSON.stringify(a) !== JSON.stringify(b);
   }
 }
