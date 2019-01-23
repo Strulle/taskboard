@@ -6,6 +6,9 @@ import { TaskEditComponent } from './task-edit.component';
 describe('<tb-task-edit>', () => {
   let sut: ComponentFixture<TaskEditComponent>;
 
+  let titleControl: HTMLInputElement;
+  let textControl: HTMLInputElement;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TaskEditComponent],
@@ -20,41 +23,33 @@ describe('<tb-task-edit>', () => {
       text: 'Norma Tennenlohe'
     };
     sut.detectChanges();
+
+    titleControl = sut.debugElement.query(By.css('[name=title-input]'))
+      .nativeElement;
+
+    textControl = sut.debugElement.query(By.css('[name=text-input]'))
+      .nativeElement;
   });
 
   describe('When it is rendered', () => {
     it('should provide a text-box to edit the title of a task', () => {
-      const input: HTMLInputElement = sut.debugElement.query(
-        By.css('[name=title-input]')
-      ).nativeElement;
-
-      expect(input).toBeDefined();
+      expect(titleControl).toBeDefined();
     });
 
     it('should provide a text-box to edit the text of a task', () => {
-      const input: HTMLInputElement = sut.debugElement.query(
-        By.css('[name=text-input]')
-      ).nativeElement;
-
-      expect(input).toBeDefined();
+      expect(textControl).toBeDefined();
     });
   });
 
   describe('When a task is provided', () => {
     it('it should display the title', () => {
-      const input: HTMLInputElement = sut.debugElement.query(
-        By.css('[name=title-input]')
-      ).nativeElement;
-
-      expect(input.value).toBe(sut.componentInstance.task.title);
+      expect(titleControl.value).toBe(sut.componentInstance.task.title);
     });
 
     it('it should display the text', () => {
-      const input: HTMLInputElement = sut.debugElement.query(
-        By.css('[name=text-input]')
-      ).nativeElement;
-
-      expect(input.value).toBe(sut.componentInstance.task.text);
+      expect(textControl.value).toBe(sut.componentInstance.task.text);
     });
   });
+
+  describe('When task ');
 });
