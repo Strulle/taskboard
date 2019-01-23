@@ -114,6 +114,16 @@ describe('<tb-task-edit>', () => {
 
       expect(cancel).toHaveBeenCalled();
     });
+
+    it('should reset the form to the origin value', () => {
+      const cancel = spyOn(sut.componentInstance.cancel, 'emit');
+
+      typeValue(titleControl, 'Buy eggs');
+
+      cancelTrigger.click();
+
+      expect(titleControl.value).toBe('Buy Milk');
+    });
   });
 });
 

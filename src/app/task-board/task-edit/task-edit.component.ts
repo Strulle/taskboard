@@ -27,8 +27,13 @@ export class TaskEditComponent implements OnInit {
     if (this._areDifferent(this.task, this.editGroup.value)) {
       this.update.emit(this.editGroup.value);
     } else {
-      this.cancel.emit();
+      this.emitCancel();
     }
+  }
+
+  emitCancel() {
+    this.cancel.emit();
+    this.editGroup.reset(this.task);
   }
 
   private _areDifferent(a: unknown, b: unknown) {

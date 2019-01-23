@@ -2,8 +2,6 @@
   <input formControlName="title" type="text" name="title-input" />
   <input formControlName="text" type="text" name="text-input" />
 
-  <button (click)="cancel.emit()" type="button" name="cancel-btn">
-    CANCEL
-  </button>
+  <button (click)="emitCancel()" type="button" name="cancel-btn">CANCEL</button>
   <button type="submit" name="update-btn">UPDATE</button>
 </form>
