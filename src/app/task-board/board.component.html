@@ -1,4 +1,5 @@
+<tb-search-box (update)="updateQuery($event)"></tb-search-box>
 <tb-task-card
   [task]="todo"
-  *ngFor="let todo of (todos$ | async)"
+  *ngFor="let todo of (todos$ | async | filter: query)"
 ></tb-task-card>

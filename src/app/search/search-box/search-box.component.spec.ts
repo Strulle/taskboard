@@ -36,5 +36,21 @@ describe('<search-box>', () => {
         done();
       });
     });
+
+    it('should emit the updated query', () => {
+      const update = jest.spyOn(sut.componentInstance.update, 'emit');
+
+      const expectedQuery = 'a';
+      const input: HTMLInputElement = sut.debugElement.query(
+        By.css('[name=search-query]')
+      ).nativeElement;
+
+      input.value = expectedQuery;
+      input.dispatchEvent(new Event('input'));
+
+      sut.detectChanges();
+
+      expect(update).toHaveBeenCalledWith(expectedQuery);
+    });
   });
 });

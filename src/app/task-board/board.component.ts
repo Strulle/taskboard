@@ -9,8 +9,13 @@ import { Task } from './models';
 })
 export class BoardComponent implements OnInit {
   todos$: Observable<Task[]>;
+  query: string;
 
   constructor() {}
 
   ngOnInit() {}
+
+  updateQuery(query: string) {
+    this.query = query;
+  }
 }

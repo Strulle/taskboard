@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TaskQuickAddComponent } from './task-quick-add/task-quick-add.component';
+import { SearchModule } from '../search/search.module';
+import { BoardComponent } from './board.component';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { TaskEditComponent } from './task-edit/task-edit.component';
+import { TaskQuickAddComponent } from './task-quick-add/task-quick-add.component';
 import { TaskViewComponent } from './task-view/task-view.component';
-import { BoardComponent } from './board.component';
+import { FilterPipe } from './lib/pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -13,8 +15,9 @@ import { BoardComponent } from './board.component';
     TaskCardComponent,
     TaskEditComponent,
     TaskViewComponent,
-    BoardComponent
+    BoardComponent,
+    FilterPipe
   ],
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [CommonModule, ReactiveFormsModule, SearchModule]
 })
 export class TaskBoardModule {}

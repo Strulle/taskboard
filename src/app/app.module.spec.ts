@@ -12,6 +12,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { routes } from './app.routing.module';
 import { BoardComponent } from './task-board/board.component';
+import { FilterPipe } from './task-board/lib/pipes/filter.pipe';
 
 describe('<tb-app>', () => {
   describe('When the app starts', () => {
@@ -20,7 +21,7 @@ describe('<tb-app>', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule.withRoutes(routes)],
-        declarations: [AppComponent, BoardComponent],
+        declarations: [AppComponent, BoardComponent, FilterPipe],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
 
