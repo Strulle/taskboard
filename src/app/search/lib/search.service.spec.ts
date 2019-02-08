@@ -45,4 +45,21 @@ describe('SearchService', () => {
       expect(next).toBeCalled();
     }));
   });
+
+  describe('When the same query is passed twice', () => {
+    it('should emit the query only once', fakeAsync(() => {
+      const observer = { next: jest.fn() };
+      const next = jest.spyOn(observer, 'next');
+
+      sut.valueChanges$.subscribe(observer);
+
+      sut.update('some');
+      tick(200);
+
+      sut.update('some');
+      tick(200);
+
+      expect(next).toBeCalledTimes(1);
+    }));
+  });
 });
