@@ -1,1 +1,4 @@
-<p>board works!</p>
+<tb-task-card
+  [task]="todo"
+  *ngFor="let todo of (todos$ | async)"
+></tb-task-card>

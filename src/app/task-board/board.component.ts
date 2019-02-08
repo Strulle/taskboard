@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Task } from './models';
 
 @Component({
   selector: 'tb-board',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
+  todos$: Observable<Task[]>;
+
   constructor() {}
 
   ngOnInit() {}

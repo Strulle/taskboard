@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { NgZone } from '@angular/core';
 import {
   async,
@@ -19,7 +20,8 @@ describe('<tb-app>', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule.withRoutes(routes)],
-        declarations: [AppComponent, BoardComponent]
+        declarations: [AppComponent, BoardComponent],
+        schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
 
       sut = TestBed.createComponent(AppComponent);
